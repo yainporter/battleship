@@ -68,10 +68,22 @@ RSpec.describe Cell do
     it 'will return a String representation of the Cell to be printed to the board' do
 
       cell = Cell.new("B4")
-
+      require 'pry'; binding.pry
       expect(cell.render).to eq(".")
 
+      cell.fired_upon
+
       expect(cell.render).to eq("M")
+
+      cruiser = Ship.new("Cruiser", 3)
+      cell.place_ship(cruiser)
+      cell.fired_upon
+
+      expect(cell.render).to eq("H")
+      cell.fired_upon
+      cell.fired_upon
+
+      expect(cell.reder).to eq("X")
 
     end
   end
