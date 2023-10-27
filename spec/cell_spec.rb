@@ -39,10 +39,14 @@ RSpec.describe Cell do
       cell = Cell.new("B4")
       cruiser = Ship.new("Cruiser", 3)
       cell.place_ship(cruiser)
+      cell2 = Cell.new("A4")
 
       cell.fired_upon
       expect(cell.ship.health).to eq(2)
       expect(cell.shots_fired).to eq(1)
+
+      expect(cell2.fired_upon).to eq(nil)
+      expect(cell2.shots_fired).to eq(1)
     end
   end
 
@@ -57,6 +61,18 @@ RSpec.describe Cell do
       cell.fired_upon
 
       expect(cell.fired_upon?).to eq(true)
+    end
+  end
+
+  describe '#render' do
+    it 'will return a String representation of the Cell to be printed to the board' do
+
+      cell = Cell.new("B4")
+
+      expect(cell.render).to eq(".")
+
+      expect(cell.render).to eq("M")
+
     end
   end
 end

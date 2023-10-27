@@ -21,7 +21,11 @@ class Cell
 
   def fired_upon
     @shots_fired += 1
-    @ship.hit
+    if empty?
+      nil
+    else
+      @ship.hit
+    end
   end
 
   def fired_upon?
