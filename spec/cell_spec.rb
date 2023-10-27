@@ -3,12 +3,13 @@ require './lib/cell'
 
 RSpec.describe Cell do
   describe '#initialize' do
-    it 'has @coordinate, @ship' do
+    it 'has @coordinate, @ship, and @shots_fired' do
       cell = Cell.new("B4")
 
       expect(cell).to be_an_instance_of(Cell)
       expect(cell.coordinate).to eq("B4")
-      expect(cell.ship).to eq([])
+      expect(cell.ship).to eq(nil)
+      expect(cell.shots_fired).to eq(0)
     end
   end
 
@@ -18,7 +19,7 @@ RSpec.describe Cell do
       cruiser = Ship.new("Cruiser", 3)
 
       expect(cell.empty?).to eq(true)
-      expect(cell.coordinate).to eq([])
+      expect(cell.ship).to eq(nil)
     end
   end
 
@@ -28,7 +29,7 @@ RSpec.describe Cell do
       cruiser = Ship.new("Cruiser", 3)
       cell.place_ship(cruiser)
 
-      expect(cell.coordinate).to eq([cruiser])
+      expect(cell.ship).to eq(cruiser)
       expect(cell.empty?).to eq(false)
     end
   end
@@ -41,10 +42,11 @@ RSpec.describe Cell do
 
       cell.fired_upon
       expect(cell.ship.health).to eq(2)
+      expect(cell.shots_fired).to eq(1)
     end
   end
 
-  descrive '#fired_upon?' do
+  describe '#fired_upon?' do
     it 'will determine if the Ship was fired upon' do
       cell = Cell.new("B4")
       cruiser = Ship.new("Cruiser", 3)
