@@ -21,4 +21,15 @@ class Board
       "D4": Cell.new("D4"),
     }
   end
+
+  def valid_coordinate?(coordinate)
+    true_or_false = false
+    @cells.each do |key,value|
+      if key.to_s == coordinate 
+        true_or_false = true
+      end
+    end
+    true_or_false
+  end
+
 end
