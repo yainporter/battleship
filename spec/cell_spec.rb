@@ -79,11 +79,12 @@ RSpec.describe Cell do
       cell.fired_upon
 
       expect(cell.render).to eq("H")
+
       cell.fired_upon
       cell.fired_upon
 
-      expect(cell.reder).to eq("X")
-
+      expect(cell.render).to eq("X")
     end
   end
+
 end

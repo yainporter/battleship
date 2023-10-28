@@ -41,10 +41,10 @@ class Cell
       "."
     elsif shots_fired > 0 && @ship == nil
       "M"
-    elsif shots_fired > 0 && @ship != nil
-      "H"
     elsif shots_fired > 0 && @ship.sunk? 
       "X"
+    elsif shots_fired > 0 && @ship != nil
+      "H"
     else 
       ""
     end
