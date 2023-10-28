@@ -84,6 +84,13 @@ RSpec.describe Cell do
       cell.fired_upon
 
       expect(cell.render).to eq("X")
+
+      hash = {"A1": Cell.new("A1"), "A2": Cell.new("A2")}
+      
+      hash.each do |key,value|
+        expect(value).to be_an_instance_of(Cell)
+      end 
+      end
     end
   end
 
