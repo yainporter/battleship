@@ -68,7 +68,6 @@ RSpec.describe Cell do
     it 'will return a String representation of the Cell to be printed to the board' do
 
       cell = Cell.new("B4")
-      require 'pry'; binding.pry
       expect(cell.render).to eq(".")
 
       cell.fired_upon

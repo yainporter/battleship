@@ -35,4 +35,18 @@ class Cell
       true
     end
   end
+
+  def render
+    if shots_fired == 0 
+      "."
+    elsif shots_fired > 0 && @ship == nil
+      "M"
+    elsif shots_fired > 0 && @ship != nil
+      "H"
+    elsif shots_fired > 0 && @ship.sunk? 
+      "X"
+    else 
+      ""
+    end
+  end
 end
