@@ -90,8 +90,7 @@ RSpec.describe Cell do
       hash.each do |key,value|
         expect(value).to be_an_instance_of(Cell)
       end 
-      end
+
     end
   end
-
 end
