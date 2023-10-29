@@ -18,9 +18,9 @@ class Board
 
   def valid_placement?(ship, coordinates)
     # if coordinates == ["A1", "A2"] then require 'pry'; binding.pry end
-    if coordinates.count == ship.length && down?(coordinates)
+    if coordinates.count == ship.length && down?(coordinates) && coordinates_empty?(coordinates)
       true
-    elsif coordinates.count == ship.length && across?(coordinates)
+    elsif coordinates.count == ship.length && across?(coordinates) && coordinates_empty?(coordinates)
       true
     else
       false
@@ -157,6 +157,12 @@ class Board
       second_char << coordinate[1]
     end
     second_char
+  end
+
+  def coordinates_empty?(coordinates)
+    true_or_false = []
+    coordinates.each{|coordinate| true_or_false << @cells[coordinate].empty?}
+    true_or_false.include?(false) ? false : true
   end
 #   sub =  ["A1", "A2"]
 #   submarine =  ["A1", "C1"]
