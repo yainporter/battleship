@@ -32,4 +32,22 @@ class Board
     true_or_false
   end
 
+  def valid_placement?(ship, coordinates)
+    require 'pry' ; binding.pry
+    if coordinates.count == ship.length
+
+    else
+      false 
+    end
+  end
+
+  def cell_array
+    cell_array = []
+    number = 1
+    until number == 5
+      ("A".."D").each {|letter| cell_array << letter + number.to_s}
+      number += 1
+    end
+    cell_array.sort
+  end
 end
