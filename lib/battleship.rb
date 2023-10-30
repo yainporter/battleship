@@ -27,13 +27,17 @@ class Battleship
       D . . . .\n"
   end
 
-  def cruiser_message
-    "Enter the squares for the Cruiser (3 spaces):\n >"
+  def ship_message(ship)
+    if ship == "cruiser"
+      "Enter the squares for the Cruiser (3 spaces):\n >" 
+    elsif ship == "submarine"     
+      "Enter the squares for the Submarine(2 spaces):\n > "
+    else 
+      "Error, try again"
+    end
   end
 
-  def submarine_message
-    "Enter the squares for the Submarine(2 spaces):\n > "
-  end
+
 
   def check_main_menu_input
     if @check_player_input == "p" 

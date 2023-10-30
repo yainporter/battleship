@@ -59,12 +59,13 @@ RSpec.describe Battleship do
     end
   end
 
-  describe '#cruiser_message' do
-    it 'generates a prompt for the user to place their cruiser' do
+  describe '#ship_message' do
+    it 'generates a prompt for the user to place their cruiser or submarine' do
       battleship_game = Battleship.new
 
-      expect(battleship_game.cruiser_message).to eq("Enter the squares for the Cruiser (3 spaces):\n >")
-      expect(battleship_game.submarine_message).to eq("Enter the squares for the Submarine(2 spaces):\n > ")
+      expect(battleship_game.ship_message("cruiser")).to eq("Enter the squares for the Cruiser (3 spaces):\n >")
+      expect(battleship_game.ship_message("submarine")).to eq("Enter the squares for the Submarine(2 spaces):\n > ")
+      expect(battleship_game.ship_message("ship")).to eq("Error, try again")
     end
   end
 
