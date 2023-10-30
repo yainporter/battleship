@@ -1,6 +1,5 @@
 require './spec/spec_helper'
 
-
 RSpec.describe do
   describe "#initialize" do 
     it "has a cell attribute" do
