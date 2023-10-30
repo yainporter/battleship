@@ -40,12 +40,12 @@ RSpec.describe Battleship do
 
       expect(battleship_game.setup).to eq("I have laid out my ships on the grid.\n
       You now need to lay out your two ships.\n
-      The Cruiser is three units long and the Submarine is two units long.\n
-        1 2 3 4\n
-      A . . . .\n
-      B . . . .\n
-      C . . . .\n
-      D . . . .\n")
+      The Cruiser is three units long and the Submarine is two units long.\n")
+      #   1 2 3 4\n
+      # A . . . .\n
+      # B . . . .\n
+      # C . . . .\n
+      # D . . . .\n")
     end
   end
 
@@ -154,6 +154,13 @@ RSpec.describe Battleship do
 
     expect(battleship_game.submarine).to be_a(Ship)
     expect(battleship_game.submarine.name).to eq("Submarine")
+  end
+
+  describe 'exit' do
+    it 'can end the Battleship game' do
+      battleship_game = Battleship.new
+      expect(battleship_game.exit).to eq("Thanks for playing, see you soon.")
+    end
   end
 end
 end
