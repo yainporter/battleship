@@ -5,15 +5,16 @@ RSpec.describe Turn do
     it 'has @battleship' do
       game_turns = Turn.new
 
-      expect(game_setup.battleship).to be_a(Battleship)
+      expect(game_turns.battleship).to be_a(Battleship)
     end
 
     describe '#board_text' do
       it 'can display the boarder for the boards' do
         game_turns = Turn.new
 
-        expect(game_turns.board_text(computer)).to eq("=============COMPUTER BOARD=============")
-        expect(game_turns.board_text(player)).to eq("==============PLAYER BOARD==============")
+        expect(game_turns.board_text("computer")).to eq("=============COMPUTER BOARD=============")
+        expect(game_turns.board_text("player")).to eq("==============PLAYER BOARD==============")
+        expect(game_turns.board_text("SFSDFSD")).to eq("Try again, please.")
       end
     end
 

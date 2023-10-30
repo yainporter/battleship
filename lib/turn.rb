@@ -5,7 +5,7 @@ class Turn
     @battleship = Battleship.new
   end
 
-  def board_test(player_or_computer)
+  def board_text(player_or_computer)
     if player_or_computer == "computer"
       "=============COMPUTER BOARD============="
     elsif player_or_computer == "player"
