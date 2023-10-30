@@ -1,6 +1,5 @@
-require './lib/board'
-require './lib/cell'
-require './lib/ship'
+require './spec/spec_helper'
+
 
 RSpec.describe do
   describe "#initialize" do 
