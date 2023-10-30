@@ -1,4 +1,4 @@
-class Setup
+class Turn
   attr_reader :battleship
 
   def initialize
