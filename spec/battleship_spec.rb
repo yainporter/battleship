@@ -4,8 +4,14 @@ RSpec.describe Battleship do
   describe '#initialize' do
     it 'can initialize the game with @player_input, and @board' do
       expect(battleship = Battleship.new).to be_a(Battleship)
-      expect(battleship.player_input).to eq(nil)
+      expect(battleship.check_player_input).to eq(nil)
       expect(battleship.board).to be_a(Board)
+    end
+
+    it 'has the option to pass in a parameter for @check_player_input' do
+      battleship = Battleship.new("p")
+
+      expect(battleship.check_player_input).to eq("p")
     end
   end
 
@@ -57,8 +63,20 @@ RSpec.describe Battleship do
     it 'generates a prompt for the user to place their cruiser' do
       battleship_game = Battleship.new
 
-      expect(battleship_game.cruiser_message).to eq("Enter the squares for the Cruiser (3 spaces): ")
-      expect(battleship_game.submarine_message).to eq("Enter the squares for the Submarine(2 spaces): ")
+      expect(battleship_game.cruiser_message).to eq("Enter the squares for the Cruiser (3 spaces):\n >")
+      expect(battleship_game.submarine_message).to eq("Enter the squares for the Submarine(2 spaces):\n > ")
+    end
+  end
+
+  describe '#check_main_menu' do
+    it 'can check whether the player put p or q, and responds correctly' do
+      battleship = Battleship.new("p")
+
+      expect(battleship.check_main_menu_input).to eq(nil)
+
+      battleship = Battleship.new("1")
+
+      expect(battleship.check_main_menu_input).to eq("OK, thanks for playing!")
     end
   end
 
@@ -67,6 +85,30 @@ RSpec.describe Battleship do
       battleship_game = Battleship.new
 
       # expect(player_setup).to eq("Enter the squares for the Submarine (2 spaces):")
+    end
+  end
+
+  describe '#check_player_coordinates_for_cruiser' do
+    it 'can check if the player coordinates are valid' do
+      battleship_game = Battleship.new("A1, A2, A3")
+
+      expect(battleship_game.check_player_coordinates_for_cruiser).to eq(true)
+
+      battleship_game = Battleship.new("A1, B1, C1")
+
+      expect(battleship_game.check_player_coordinates_for_cruiser).to eq(true)
+
+      battleship_game = Battleship.new("A1, B2, C3")
+
+      expect(battleship_game.check_player_coordinates_for_cruiser).to eq("Those are invalid coordinates. Please try again:\n >")
+    end
+  end
+
+  describe '#invalid_coordinates' do
+    it 'can tell the user that their coordinates are invalid, and prompt them to try again' do
+      battleship_game = Battleship.new("A1, B2, C3")
+
+      expect(battleship_game.invalid_coordinates_msg).to eq("Those are invalid coordinates. Please try again:\n >")
     end
   end
 end

@@ -1,9 +1,10 @@
+require './spec/spec_helper'
 class Battleship
-  attr_reader :player_input, :board
+  attr_reader :check_player_input, :board
 
-  def initialize
+  def initialize(test_player_input = nil)
     @board = Board.new
-    @player_input = nil
+    @check_player_input = test_player_input
   end
 
   def main_menu
@@ -11,7 +12,7 @@ class Battleship
   end
 
   def player_response
-    @player_input = gets
+    @check_player_input = gets.chomp
   end
 
   def setup
@@ -27,16 +28,31 @@ class Battleship
   end
 
   def cruiser_message
-    "Enter the squares for the Cruiser (3 spaces): "
+    "Enter the squares for the Cruiser (3 spaces):\n >"
   end
 
   def submarine_message
-    "Enter the squares for the Submarine(2 spaces): "
+    "Enter the squares for the Submarine(2 spaces):\n > "
   end
 
-  def player_setup
-    @player_response
+  def check_main_menu_input
+    if @check_player_input == "p" 
+      puts setup 
+    else
+      "OK, thanks for playing!"
+    end
   end
+
+  def check_player_coordinates_for_cruiser
+
+    if @board.valid_placement?(ships[0], @check_player_input.gsub(",","").split) 
+      @board.place(ships[0], @check_player_input.gsub(",","").split) 
+      true
+    else
+      invalid_coordinates_msg
+    end
+  end
+
 ###################### PRIVATE METHODS ###################
   
 
@@ -59,8 +75,8 @@ class Battleship
     @board.place(ships[1], random_coordinate(2))
   end
 
-  def player_setup
-
+  def invalid_coordinates_msg
+    "Those are invalid coordinates. Please try again:\n >"
   end
 end
 # battleship = Battleship.new

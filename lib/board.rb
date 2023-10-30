@@ -180,7 +180,9 @@ class Board
 
   def coordinates_empty?(coordinates)
     true_or_false = []
-    coordinates.each{|coordinate| true_or_false << @cells[coordinate].empty?}
+    coordinates.each do |coordinate|
+      true_or_false << @cells[coordinate].empty?
+    end
     true_or_false.include?(false) ? false : true
   end
 #   sub =  ["A1", "A2"]

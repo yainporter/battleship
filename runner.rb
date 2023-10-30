@@ -2,3 +2,8 @@ require './spec/spec_helper'
 
 battleship_game = Battleship.new
 puts battleship_game.main_menu
+battleship_game.player_response
+battleship_game.check_main_menu_input
+puts battleship_game.cruiser_message
+battleship_game.player_response
+battleship_game.check_player_coordinates_for_cruiser
