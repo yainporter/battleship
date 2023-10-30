@@ -78,7 +78,7 @@ RSpec.describe do
       cruiser = Ship.new("Cruiser", 3)
       submarine = Ship.new("Submarine", 2)  
       board.place(cruiser, ["A1", "A2", "A3"])
-      
+
       expect(board.valid_placement?(submarine, ["A1", "B1"])).to eq(false)
     end
   end
@@ -96,6 +96,24 @@ RSpec.describe do
       expect(cell_2.ship).to eq(cruiser)
       expect(cell_3.ship).to eq(cruiser)
       expect(cell_3.ship == cell_2.ship).to eq(true)
+    end
+  end
+
+  describe '#render' do
+    it 'can render a String representation of the board' do
+      board = Board.new
+      cruiser = Ship.new("Cruiser", 3) 
+      board.place(cruiser, ["A1", "A2", "A3"])
+
+      expect(board.render).to eq("  1 2 3 4 \nA . . . . \nB . . . . \nC . . . . \nD . . . . \n")
+    end
+
+    it 'can have an option argument to indicate whether ships are hidden' do
+      board = Board.new
+      cruiser = Ship.new("Cruiser", 3) 
+      board.place(cruiser, ["A1", "A2", "A3"])
+
+      expect(board.render(true)).to eq("  1 2 3 4 \nA S S S . \nB . . . . \nC . . . . \nD . . . . \n")
     end
   end
 end

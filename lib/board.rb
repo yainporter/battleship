@@ -31,6 +31,24 @@ class Board
     coordinates.each {|coordinate| @cells[coordinate].place_ship(ship)}
   end
 
+  def render(true_or_false = nil)
+
+    if true_or_false == true
+      "  1 2 3 4 \n" +
+      "A #{cells["A1"].render(true_or_false)} #{cells["A2"].render(true_or_false)} #{cells["A3"].render(true_or_false)} #{cells["A4"].render(true_or_false)} \n" +
+      "B #{cells["B1"].render(true_or_false)} #{cells["B2"].render(true_or_false)} #{cells["B3"].render(true_or_false)} #{cells["B4"].render(true_or_false)} \n" +
+      "C #{cells["C1"].render(true_or_false)} #{cells["C2"].render(true_or_false)} #{cells["C3"].render(true_or_false)} #{cells["C4"].render(true_or_false)} \n" +
+      "D #{cells["D1"].render(true_or_false)} #{cells["D2"].render(true_or_false)} #{cells["D3"].render(true_or_false)} #{cells["D4"].render(true_or_false)} \n" 
+    else
+      "  1 2 3 4 \n" +
+      "A #{cells["A1"].render} #{cells["A2"].render} #{cells["A3"].render} #{cells["A4"].render} \n" +
+      "B #{cells["B1"].render} #{cells["B2"].render} #{cells["B3"].render} #{cells["B4"].render} \n" +
+      "C #{cells["C1"].render} #{cells["C2"].render} #{cells["C3"].render} #{cells["C4"].render} \n" +
+      "D #{cells["D1"].render} #{cells["D2"].render} #{cells["D3"].render} #{cells["D4"].render} \n" 
+    end
+  end
+
+
     # def valid_placement?(ship, coordinates)
   #   true_or_false = nil
   #   if coordinates.count == ship.length

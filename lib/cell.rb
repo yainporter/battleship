@@ -36,8 +36,10 @@ class Cell
     end
   end
 
-  def render
-    if shots_fired == 0 
+  def render(true_or_false = nil)
+    if true_or_false == true && shots_fired == 0 && @ship != nil
+      "S"
+    elsif shots_fired == 0 
       "."
     elsif shots_fired > 0 && @ship == nil
       "M"
