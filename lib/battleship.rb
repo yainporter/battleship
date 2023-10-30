@@ -78,9 +78,7 @@ class Battleship
   end
 
   def setup_msg
-    "I have laid out my ships on the grid.\n
-    You now need to lay out your two ships.\n
-    The Cruiser is three units long and the Submarine is two units long.\n"
+    "I have laid out my ships on the grid.\n You now need to lay out your two ships.\n The Cruiser is three units long and the Submarine is two units long.\n"
   end
 
   def loop_for_player_coordinates(ship)

@@ -4,4 +4,18 @@ class Turn
   def initialize
     @battleship = Battleship.new
   end
+
+  def board_test(player_or_computer)
+    if player_or_computer == "computer"
+      "=============COMPUTER BOARD============="
+    elsif player_or_computer == "player"
+      "==============PLAYER BOARD=============="
+    else
+      "Try again, please."
+    end
+  end
+
+  def display_board
+    
+  end
 end

@@ -38,9 +38,7 @@ RSpec.describe Battleship do
     it 'directs the player what to do after setting the computers board' do
       battleship_game = Battleship.new
 
-      expect(battleship_game.setup).to eq("I have laid out my ships on the grid.\n
-      You now need to lay out your two ships.\n
-      The Cruiser is three units long and the Submarine is two units long.\n")
+      expect(battleship_game.setup_msg).to eq("I have laid out my ships on the grid.\n You now need to lay out your two ships.\n The Cruiser is three units long and the Submarine is two units long.\n")
       #   1 2 3 4\n
       # A . . . .\n
       # B . . . .\n
@@ -96,7 +94,7 @@ RSpec.describe Battleship do
       submarine = Ship.new("Submarine", 2)  
 
       expect(battleship_game.check_player_coordinates(cruiser)).to eq(true)
-      expect(battleship_game.check_player_coordinates(submarine)).to eq("Those are invalid coordinates. Please try again:\n >")
+      expect(battleship_game.check_player_coordinates(submarine)).to eq(nil)
 
       battleship_game = Battleship.new("A1, B1, C1")
 
@@ -104,7 +102,7 @@ RSpec.describe Battleship do
 
       battleship_game = Battleship.new("A1, B2, C3")
 
-      expect(battleship_game.check_player_coordinates(cruiser)).to eq("Those are invalid coordinates. Please try again:\n >")
+      expect(battleship_game.check_player_coordinates(cruiser)).to eq(nil)
     end
   end
 

@@ -181,9 +181,7 @@ class Board
   def coordinates_empty?(coordinates)
     true_or_false = []
     coordinates.each do |coordinate|
-      if valid_coordinate?(coordinate) == true
         true_or_false << @cells[coordinate].empty?
-      end
     end
     true_or_false.include?(false) ? false : true
   end
