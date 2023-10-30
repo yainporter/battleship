@@ -50,12 +50,18 @@ class Board
     cell_array.sort
   end
 
-  def check_across(coordinates)
-    second_character = []
-    coordinates = ["A1", "A2", "A4"]
+  def second_character(coordinates)
+    second_characters = []
     coordinates.each do |coordinate|
       coordinate[1]
-      second_character << coordinate[1]
+      second_characters << coordinate[1].to_i
     end
+    second_characters
+  end
+
+
+  def consecutive?(coordinates)
+    range = (second_character(coordinates).first..second_character(coordinates).last).to_a
+    second_character(coordinates) == range
   end
 end
