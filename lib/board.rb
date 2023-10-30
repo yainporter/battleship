@@ -25,17 +25,16 @@ class Board
   def valid_coordinate?(coordinate)
     true_or_false = false
     @cells.each do |key,value|
-      if key.to_s == coordinate 
-        true_or_false = true
+        if key.to_s == coordinate && value.empty?
+          true_or_false = true
+        end
       end
-    end
     true_or_false
   end
 
-  def valid_placement?(ship, coordinates)
-    require 'pry' ; binding.pry
-    if coordinates.count == ship.length
 
+  def valid_placement?(ship, coordinates)
+    if coordinates.count == ship.length
     else
       false 
     end
@@ -49,5 +48,20 @@ class Board
       number += 1
     end
     cell_array.sort
+  end
+
+  def second_character(coordinates)
+    second_characters = []
+    coordinates.each do |coordinate|
+      coordinate[1]
+      second_characters << coordinate[1].to_i
+    end
+    second_characters
+  end
+
+
+  def consecutive?(coordinates)
+    range = (second_character(coordinates).first..second_character(coordinates).last).to_a
+    second_character(coordinates) == range
   end
 end
