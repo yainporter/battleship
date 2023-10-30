@@ -7,3 +7,8 @@ battleship_game.check_main_menu_input
 puts battleship_game.cruiser_message
 battleship_game.player_response
 battleship_game.check_player_coordinates_for_cruiser
+battleship_game.place_player_cruiser
+puts battleship_game.submarine_message
+battleship_game.player_response
+battleship_game.check_player_coordinates_for_cruiser
+battleship_game.place_player_submarine

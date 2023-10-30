@@ -88,27 +88,71 @@ RSpec.describe Battleship do
     end
   end
 
-  describe '#check_player_coordinates_for_cruiser' do
+  describe '#check_player_coordinates_for_ship' do
     it 'can check if the player coordinates are valid' do
       battleship_game = Battleship.new("A1, A2, A3")
+      cruiser = Ship.new("Cruiser", 3)
+      submarine = Ship.new("Submarine", 2)  
 
-      expect(battleship_game.check_player_coordinates_for_cruiser).to eq(true)
+      expect(battleship_game.check_player_coordinates(cruiser)).to eq(true)
+      expect(battleship_game.check_player_coordinates(submarine)).to eq("Those are invalid coordinates. Please try again:\n >")
 
       battleship_game = Battleship.new("A1, B1, C1")
 
-      expect(battleship_game.check_player_coordinates_for_cruiser).to eq(true)
+      expect(battleship_game.check_player_coordinates(cruiser)).to eq(true)
 
       battleship_game = Battleship.new("A1, B2, C3")
 
-      expect(battleship_game.check_player_coordinates_for_cruiser).to eq("Those are invalid coordinates. Please try again:\n >")
+      expect(battleship_game.check_player_coordinates(cruiser)).to eq("Those are invalid coordinates. Please try again:\n >")
     end
   end
 
   describe '#invalid_coordinates' do
     it 'can tell the user that their coordinates are invalid, and prompt them to try again' do
-      battleship_game = Battleship.new("A1, B2, C3")
+      battleship_game = Battleship.new("A1, B2, C3") 
 
       expect(battleship_game.invalid_coordinates_msg).to eq("Those are invalid coordinates. Please try again:\n >")
     end
   end
+
+  describe '#place_player_cruiser' do
+    it 'can place the cruiser once the player coordinates chosen are valid' do
+      battleship_game = Battleship.new("A1, B1, C1")
+      cruiser = Ship.new("Cruiser", 3)
+      submarine = Ship.new("Submarine", 2)  
+      battleship_game.place_player_ship(cruiser)
+      cells_with_ship = 0
+    
+      battleship_game.board.cells.values.each do |cell|
+        cell.ship != nil ? cells_with_ship += 1 : false
+      end
+      expect(cells_with_ship).to eq(3)
+
+      battleship_game = Battleship.new("A1, B1")
+      cells_with_ship = 0
+      battleship_game.place_player_ship(submarine)
+      battleship_game.board.cells.values.each do |cell|
+        cell.ship != nil ? cells_with_ship += 1 : false
+      end
+      expect(cells_with_ship).to eq(2)
+    end
+  end
+
+  describe '#cruiser' do
+    it 'can create a cruiser ship' do
+      battleship_game = Battleship.new
+
+      expect(battleship_game.cruiser).to be_a(Ship)
+      expect(battleship_game.cruiser.name).to eq("Cruiser")
+    end
+  end
+
+  describe '#submarine' do
+  it 'can create a submarine ship' do
+    battleship_game = Battleship.new
+
+    expect(battleship_game.submarine).to be_a(Ship)
+    expect(battleship_game.submarine.name).to eq("Submarine")
+  end
+end
 end

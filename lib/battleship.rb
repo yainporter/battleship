@@ -43,26 +43,30 @@ class Battleship
     end
   end
 
-  def check_player_coordinates_for_cruiser
-
-    if @board.valid_placement?(ships[0], @check_player_input.gsub(",","").split) 
-      @board.place(ships[0], @check_player_input.gsub(",","").split) 
+  def check_player_coordinates(ship)
+    if @board.valid_placement?(ship, @check_player_input.gsub(",","").split) 
       true
     else
       invalid_coordinates_msg
     end
   end
 
+  def place_player_ship(ship)
+    @board.place(ship, @check_player_input.gsub(",","").split) 
+  end
 ###################### PRIVATE METHODS ###################
   
 
-  def ships
-    [cruiser = Ship.new("Cruiser", 3),
-    submarine = Ship.new("Submarine", 2)]
+  def cruiser
+    cruiser = Ship.new("Cruiser", 3)
+  end
+
+  def submarine
+    submarine = Ship.new("Submarine", 2)
   end
 
   def random_coordinate(n)
-    n == 2 ? ship = ships[1] : ship = ships[0]
+    n == 2 ? ship = submarine : ship = cruiser
     sample = @board.cells.keys.sample(n)
     until @board.valid_placement?(ship, sample)
       sample = @board.cells.keys.sample(n)
@@ -71,8 +75,8 @@ class Battleship
   end
 
   def computer_setup
-    @board.place(ships[0], random_coordinate(3))
-    @board.place(ships[1], random_coordinate(2))
+    @board.place(cruiser, random_coordinate(3))
+    @board.place(submarine, random_coordinate(2))
   end
 
   def invalid_coordinates_msg
