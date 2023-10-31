@@ -8,24 +8,9 @@ class Turn
   end
 ############################ GAME SETUP ##############################
 
-  def main_menu
-    "Welcome to BATTLESHIP\nEnter p to play. Enter q to quit."
-  end
-
   def player_response
     @check_player_input = gets.chomp
   end
-
-  def ship_message(ship)
-    if ship == "cruiser"
-      "Enter the squares for the Cruiser (3 spaces):\n >" 
-    elsif ship == "submarine"    
-      "Enter the squares for the Submarine(2 spaces):\n > "
-    else 
-      "Error, try again"
-    end
-  end
-
 
   def check_main_menu_input
     if @check_player_input == "p" 
@@ -67,19 +52,7 @@ class Turn
     @board.place(cruiser, random_coordinate(3))
     @board.place(submarine, random_coordinate(2))
   end
-
-  def invalid_coordinates_msg
-    "Those are invalid coordinates. Please try again:\n >"
-  end
-
-  def exit
-    "Thanks for playing, see you soon."
-  end
-
-  def setup_msg
-    "I have laid out my ships on the grid.\n You now need to lay out your two ships.\n The Cruiser is three units long and the Submarine is two units long.\n"
-  end
-
+  
   def loop_for_player_coordinates(ship)
     placement_check = false
     until placement_check == true
@@ -94,9 +67,6 @@ class Turn
     end
   end
 ########################### PLAYER SHOT ###################################
-  def player_shot_prompt
-    "Enter the coordinate for your shot:"
-  end
 
   def valid_shot?(coordinate)
     true_or_false = false
@@ -142,7 +112,5 @@ class Turn
     end
   end
 end
-
-
 # battleship = Battleship.new
 # battleship.main_menu
