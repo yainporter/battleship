@@ -33,18 +33,18 @@ RSpec.describe Cell do
     end
   end
 
-  describe '#fired_upon' do
+  describe '#fire_upon' do
     it 'will damage the Ship' do
       cell = Cell.new("B4")
       cruiser = Ship.new("Cruiser", 3)
       cell.place_ship(cruiser)
       cell2 = Cell.new("A4")
 
-      cell.fired_upon
+      cell.fire_upon
       expect(cell.ship.health).to eq(2)
-      expect(cell.shots_fired).to eq(1)
+      expect(cell.shots_fire).to eq(1)
 
-      expect(cell2.fired_upon).to eq(nil)
+      expect(cell2.fire_upon).to eq(nil)
       expect(cell2.shots_fired).to eq(1)
     end
   end
@@ -57,7 +57,7 @@ RSpec.describe Cell do
 
       expect(cell.fired_upon?).to eq(false)
 
-      cell.fired_upon
+      cell.fire_upon
 
       expect(cell.fired_upon?).to eq(true)
     end
@@ -69,18 +69,18 @@ RSpec.describe Cell do
       cell = Cell.new("B4")
       expect(cell.render).to eq(".")
 
-      cell.fired_upon
+      cell.fire_upon
 
       expect(cell.render).to eq("M")
 
       cruiser = Ship.new("Cruiser", 3)
       cell.place_ship(cruiser)
-      cell.fired_upon
+      cell.fire_upon
 
       expect(cell.render).to eq("H")
 
-      cell.fired_upon
-      cell.fired_upon
+      cell.fire_upon
+      cell.fire_upon
 
       expect(cell.render).to eq("X")
 

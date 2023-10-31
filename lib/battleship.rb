@@ -111,7 +111,7 @@ class Battleship
   def computer_shot 
     coordinate = @board.cells.keys.sample
     if valid_shot?(coordinate)
-      board.cells[coordinate].fired_upon
+      board.cells[coordinate].fire_upon
       results = board.cells[coordinate].render
       results = shot_results(results)
     end
@@ -122,7 +122,7 @@ class Battleship
     if valid_shot?(check_player_input) == false
       "Please enter a valid coordinate:"
     else
-      board.cells[check_player_input].fired_upon
+      board.cells[check_player_input].fire_upon
       results = board.cells[check_player_input].render
       results = shot_results(results)
     end

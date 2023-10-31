@@ -19,7 +19,7 @@ class Cell
     @ship = cruiser
   end
 
-  def fired_upon
+  def fire_upon
     @shots_fired += 1
     if empty?
       nil
