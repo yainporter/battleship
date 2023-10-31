@@ -43,6 +43,16 @@ RSpec.describe Message do
     end
   end
 
+  describe '#board_header_msg' do
+    it 'can display the boarder for the boards' do
+      msg = Message.new
+
+      expect(msg.board_header_msg("computer")).to eq("=============COMPUTER BOARD=============")
+      expect(msg.board_header_msg("player")).to eq("==============PLAYER BOARD==============")
+      expect(msg.board_header_msg("SFSDFSD")).to eq("Try again, please.")
+    end
+  end
+
   describe '#player_shot_prompt' do
   it 'prompts the user to enter a coordinate for their shot ' do
     msg = Message.new

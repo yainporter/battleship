@@ -15,12 +15,7 @@ class Turn
 
   def check_main_menu_input
     msg = Message.new
-    
-    if @check_player_input == "p" 
-      msg.setup_msg
-    else
-      msg.exit_msg
-    end
+    @check_player_input == "p" ? msg.setup_msg : msg.exit_msg 
   end
 
   def check_player_coordinates(ship)
@@ -72,23 +67,19 @@ class Turn
 ########################### PLAYER SHOT ###################################
 
   def valid_shot?(coordinate)
-    true_or_false = false
-    board.cells.values.each do |cell|
-      if cell.shots_fired == 0
-        true_or_false = true
-      end
-    end
-    true_or_false
+    board.cells[coordinate].shots_fired == 0 ? true : false 
   end
 
-  def computer_shot 
+  def computer_shot
     coordinate = @board.cells.keys.sample
-    if valid_shot?(coordinate)
-      board.cells[coordinate].fire_upon
-      results = board.cells[coordinate].render
-      results = shot_results(results)
+    until valid_shot?(coordinate)
+      coordinate = @board.cells.keys.sample
     end
+    board.cells[coordinate].fire_upon
+    results = board.cells[coordinate].render
+    results = shot_results(results)
     "My shot on #{coordinate} was a #{results}."
+    end
   end
 
   def player_shot
