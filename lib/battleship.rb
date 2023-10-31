@@ -14,7 +14,6 @@ class Battleship
 
   def player_response
     @check_player_input = gets.chomp
-    @check_player_input == "q" ? exit : false
   end
 
   def ship_message(ship)
@@ -94,7 +93,54 @@ class Battleship
       end
     end
   end
+########################### PLAYER SHOT ###################################
+  def player_shot_prompt
+    "Enter the coordinate for your shot:"
+  end
 
+  def valid_shot?(coordinate)
+    true_or_false = false
+    board.cells.values.each do |cell|
+      if cell.shots_fired == 0
+        true_or_false = true
+      end
+    end
+    true_or_false
+  end
+
+  def computer_shot 
+    coordinate = @board.cells.keys.sample
+    if valid_shot?(coordinate)
+      board.cells[coordinate].fired_upon
+      results = board.cells[coordinate].render
+      results = shot_results(results)
+    end
+    "My shot on #{coordinate} was a #{results}."
+  end
+
+  def player_shot
+    if valid_shot?(check_player_input) == false
+      "Please enter a valid coordinate:"
+    else
+      board.cells[check_player_input].fired_upon
+      results = board.cells[check_player_input].render
+      results = shot_results(results)
+    end
+    "Your shot on #{check_player_input} was a #{results}."
+  end
+
+  def shot_results(results)
+    case results
+    when "M"
+      "miss"
+    when "X"
+      "sink"
+    when "H"
+      "hit"
+    else
+      "ERROR, try again."
+    end
+  end
 end
 
 

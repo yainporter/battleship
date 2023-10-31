@@ -147,11 +147,12 @@ RSpec.describe Battleship do
   end
 
   describe '#submarine' do
-  it 'can create a submarine ship' do
-    battleship_game = Battleship.new
+    it 'can create a submarine ship' do
+      battleship_game = Battleship.new
 
-    expect(battleship_game.submarine).to be_a(Ship)
-    expect(battleship_game.submarine.name).to eq("Submarine")
+      expect(battleship_game.submarine).to be_a(Ship)
+      expect(battleship_game.submarine.name).to eq("Submarine")
+    end
   end
 
   describe 'exit' do
@@ -160,5 +161,71 @@ RSpec.describe Battleship do
       expect(battleship_game.exit).to eq("Thanks for playing, see you soon.")
     end
   end
-end
+
+  describe '#player_shot_prompt' do
+    it 'prompts the user to enter a coordinate for their shot ' do
+      battleship_game = Battleship.new
+      
+      expect(battleship_game.player_shot_prompt).to eq("Enter the coordinate for your shot:")
+    end
+  end
+
+  describe '#computer_shot' do
+    it 'randomizes the computers shot' do
+      player_board = Battleship.new
+      player_board.computer_shot
+      computer_shots = 0
+      player_board.board.cells.values.each do |cell|
+        if cell.shots_fired > 0
+          computer_shots += 1
+        end
+      end
+      expect(computer_shots).to eq(1)
+
+      player_board.computer_shot
+      player_board.computer_shot
+      player_board.computer_shot
+      computer_shots = 0
+      player_board.board.cells.values.each do |cell|
+        if cell.shots_fired > 0
+          computer_shots += 1
+        end
+      end
+
+      expect(computer_shots).to eq(4)
+    end
+  end
+
+  describe '#valid_shot?' do
+    it 'can validate whether the cell has been fired upon or not' do
+      battleship_game = Battleship.new
+
+      expect(battleship_game.valid_shot?("C1")).to eq(true)
+    end
+  end
+
+  # describe 'player_shot' do
+  #   it 'lets the player take a shot at the computers board' do
+  #   computer_board = Battleship.new
+  #   computer_board.player_response
+  #   computer_board.player_shot
+  #   computer_shots = 0
+  #   player_board.board.cells.values.each do |cell|
+  #     if cell.shots_fired > 0
+  #       computer_shots += 1
+  #     end
+  #   end
+  #   expect(computer_shots).to eq(1)
+  # end
+
+  describe 'shot_results' do
+    it 'can check the cell to see what kind of shot was made, and translate to String accordingly' do
+      battleship_game = Battleship.new
+
+      expect(battleship_game.shot_results("M")).to eq("miss")
+      expect(battleship_game.shot_results("X")).to eq("sink")
+      expect(battleship_game.shot_results("H")).to eq("hit")
+      expect(battleship_game.shot_results(".")).to eq("ERROR, try again.")
+    end
+  end
 end
