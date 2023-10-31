@@ -17,13 +17,14 @@ RSpec.describe Game do
 
   describe '#main menu' do
     it 'prints out the main menu message' do
-
+      game = Game.new
     end
   end
 
   describe '#game_set_up' do
     it 'sets up the board' do
-
+      game = Game.new
+      game.set_up
     end
   end
   

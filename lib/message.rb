@@ -9,23 +9,23 @@ class Message
   end
 
   def ship_msg(ship)
-    if ship == "cruiser"
-      "Enter the squares for the Cruiser (3 spaces):\n >" 
-    elsif ship == "submarine"    
-      "Enter the squares for the Submarine(2 spaces):\n > "
+    if ship == "Cruiser"
+      "Enter the squares for the Cruiser (3 spaces):" 
+    elsif ship == "Submarine"    
+      "Enter the squares for the Submarine(2 spaces):"
     else 
-      "Error, try again"
+      "You entered it wrong, make sure the first letter of the ship is capitalized."
     end
   end
 
   def invalid_coordinates_msg
-    "Those are invalid coordinates. Please try again:\n >"
+    "Those are invalid coordinates. Please try again."
   end
 
   def board_header_msg(player_or_computer)
-    if player_or_computer == "computer"
+    if player_or_computer == "Computer"
       "=============COMPUTER BOARD============="
-    elsif player_or_computer == "player"
+    elsif player_or_computer == "Player"
       "==============PLAYER BOARD=============="
     else
       "Try again, please."

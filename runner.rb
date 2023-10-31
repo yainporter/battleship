@@ -7,12 +7,12 @@ cruiser = Ship.new("Cruiser", 3)
 computer_turn = Turn.new(computer_battleship)
 player_turn = Turn.new(player_battleship)
 
-puts player_battleship.main_menu
-player_battleship.player_response
-player_battleship.check_main_menu_input
-computer_battleship.computer_setup
-puts player_battleship.board.render
-puts player_battleship.ship_message("cruiser")
+# puts player_battleship.main_menu
+# player_battleship.player_response
+# player_battleship.check_main_menu_input
+# computer_battleship.computer_setup
+# puts player_battleship.board.render
+# puts player_battleship.ship_message("cruiser")
 player_battleship.loop_for_player_coordinates(cruiser)
 player_battleship.place_player_ship (cruiser)
 puts player_battleship.board.render(true)

@@ -13,12 +13,17 @@ class Board
   end
 
   def valid_coordinate?(coordinate)
+    coordinate.respond_to?(:split) ? coordinates = coordinate.split : coordinates = coordinate
     true_or_false = false
-    @cells.each do |key,value|
-      key.to_s == coordinate && value.empty? ? true_or_false = true : false
+    @cells.each do |key_coordinate,cell|
+      coordinates.each do |coordinate|
+        key_coordinate.to_s == coordinate && cell.empty? ? true_or_false = true : false
+      end
     end
     true_or_false
   end
+
+  #Method to validate coordinate(s)
 
   def valid_placement?(ship, coordinates) #How can I refactor this?
     if coordinates.count == ship.length && down?(coordinates) && coordinates_empty?(coordinates)
@@ -37,74 +42,6 @@ class Board
   def render(true_or_false = nil)
     true_or_false == true ? render_true(true_or_false) : render_nil
   end
-
-
-    # def valid_placement?(ship, coordinates)
-  #   true_or_false = nil
-  #   if coordinates.count == ship.length
-  #     across = check_index(find_index_array_across(coordinates))
-  #     down = check_index(find_index_array_down(coordinates))
-  #     if across.include?(false) && down.include?(false)
-  #       true_or_false = false
-  #     elsif across.include?(false) && check_down(coordinates) == false
-  #       true_or_false = false
-  #     elsif down.include?(false) && across.include?(false) == false
-  #       true_or_false = true
-  #     elsif across.include?(false) && down.include?(false) == false
-  #       true_or_false = true
-  #     end
-  #   else
-  #     true_or_false = false
-  #   end
-  #   true_or_false
-  # end
-
-  # def find_index_array_across(coordinates)
-  #   index_array = []
-  #   coordinates.each do |coordinate|
-  #     index_array << cell_array.find_index(coordinate)
-  #   end
-  #   index_array
-  # end
-
-  # def check_index(array)
-  #   next_index = nil
-  #   array.map do |index|
-  #     if next_index == nil
-  #       next_index = index.next
-  #     else
-  #       if index == next_index
-  #         next_index = index.next
-  #         true
-  #       else
-  #         next_index = index.next
-  #         false
-  #       end
-  #     end
-  #   end
-  # end
-
-  # def find_index_array_down(coordinates)
-  #   letter_array = []
-  #   coordinates.each do |coordinate|
-  #     letter_array << coordinate.chop
-  #   end
-  #   letter_array
-  # end
-
-  # def check_down(coordinates)
-  #   first_chr = []
-  #   last_chr = []
-  #   coordinates.each do |coordinate|
-  #     first_chr << coordinate.chr
-  #     last_chr << coordinate.slice(-1)
-  #   end
-  #   if last_chr.uniq.count == 1 && check_index(first_chr).include?(false) == false
-  #     true
-  #   else 
-  #     false
-  #   end
-  # end
 
 ####################### PRIVATE METHODS START ###########################
   private
@@ -187,26 +124,4 @@ class Board
     end
     true_or_false.include?(false) ? false : true
   end
-#   sub =  ["A1", "A2"]
-#   submarine =  ["A1", "C1"]
-#   cruiser = ["A3", "A2", "A1"]
-#   index_array = []
-#   sub.each do |coordinate|
-#     index_array << cell_array.find_index(coordinate)
-#   end
-#  next_index = nil
-#   index_array.map do |index|
-#     if next_index == nil
-#       next_index = index += 1
-#     else
-#       if index == next_index
-#         next_index = index += 1
-#         true
-#       else
-#         next_index = index += 1
-#         false
-#       end
-#     end
-#   end
-#   require 'pry'; binding.pry
 end

@@ -27,10 +27,20 @@ class Turn
   end
 
   def check_player_coordinates(ship)
-    if @board.valid_placement?(ship, @check_player_input.gsub(",","").split) 
+    if @board.valid_placement?(ship, @check_player_input.gsub(",","").split) && @board.valid_coordinate?(@check_player_input.gsub(",","").split) 
       true
+    else 
+      false
     end
   end
+
+
+  # def check_player_input_count(ship)
+  #   until @check_player_input.split.count == ship.length 
+  #   @msg.invalid_coordinates_msg
+  #   player_response
+  #   end
+  # end
 
   def place_player_ship(ship)
     @board.place(ship, @check_player_input.gsub(",","").split) 
@@ -38,7 +48,7 @@ class Turn
 
   def player_shot
     if valid_shot?(check_player_input) == false
-      msg.invalid_coordinates_msg
+      @msg.invalid_coordinates_msg
     else
       board.cells[check_player_input].fire_upon
       results = board.cells[check_player_input].render
@@ -50,13 +60,12 @@ class Turn
   def loop_for_player_coordinates(ship)
     placement_check = false
     until placement_check == true
+      puts @msg.ship_msg(ship.name).chomp
       player_response
       if check_player_coordinates(ship) == true 
         placement_check = true 
-      elsif placement_check == false
-        msg.invalid_coordinates_msg
       else
-        "ERROR, TRY AGAIN"
+        puts @msg.invalid_coordinates_msg
       end
     end
   end

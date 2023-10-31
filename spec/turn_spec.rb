@@ -67,7 +67,7 @@ RSpec.describe Turn do
       submarine = Ship.new("Submarine", 2)  
 
       expect(player_turn.check_player_coordinates(cruiser)).to eq(true)
-      expect(player_turn.check_player_coordinates(submarine)).to eq(nil)
+      expect(player_turn.check_player_coordinates(submarine)).to eq(false)
 
       player_turn = Turn.new("Player", "A1, B1, C1")
 
@@ -75,7 +75,7 @@ RSpec.describe Turn do
 
       player_turn = Turn.new("Player", "A1, B2, C3")
 
-      expect(player_turn.check_player_coordinates(cruiser)).to eq(nil)
+      expect(player_turn.check_player_coordinates(cruiser)).to eq(false)
     end
   end
 

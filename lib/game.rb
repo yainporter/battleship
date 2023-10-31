@@ -9,13 +9,15 @@ class Game
   end
 
   def main_menu
-    msg.main_menu_msg
+    puts msg.main_menu_msg
     turns["Player"].player_response
     turns["Player"].check_main_menu_input
   end
 
-  def game_set_up
-    
+  def set_up
+    # turns["Computer"].computer_setup
+    # puts turns["Player"].board.render
+    # turns["Player"].loop_for_player_coordinates(@cruiser)
   end
 
 end

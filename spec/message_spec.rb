@@ -29,9 +29,9 @@ RSpec.describe Message do
     it 'generates a prompt for the user to place their cruiser or submarine' do
       msg = Message.new
 
-      expect(msg.ship_msg("cruiser")).to eq("Enter the squares for the Cruiser (3 spaces):\n >")
-      expect(msg.ship_msg("submarine")).to eq("Enter the squares for the Submarine(2 spaces):\n > ")
-      expect(msg.ship_msg("ship")).to eq("Error, try again")
+      expect(msg.ship_msg("Cruiser")).to eq("Enter the squares for the Cruiser (3 spaces):")
+      expect(msg.ship_msg("Submarine")).to eq("Enter the squares for the Submarine(2 spaces):")
+      expect(msg.ship_msg("ship")).to eq("You entered it wrong, make sure the first letter of the ship is capitalized.")
     end
   end
 
@@ -39,7 +39,7 @@ RSpec.describe Message do
     it 'can tell the user that their coordinates are invalid, and prompt them to try again' do
       msg = Message.new
 
-      expect(msg.invalid_coordinates_msg).to eq("Those are invalid coordinates. Please try again:\n >")
+      expect(msg.invalid_coordinates_msg).to eq("Those are invalid coordinates. Please try again.")
     end
   end
 
@@ -47,8 +47,8 @@ RSpec.describe Message do
     it 'can display the boarder for the boards' do
       msg = Message.new
 
-      expect(msg.board_header_msg("computer")).to eq("=============COMPUTER BOARD=============")
-      expect(msg.board_header_msg("player")).to eq("==============PLAYER BOARD==============")
+      expect(msg.board_header_msg("Computer")).to eq("=============COMPUTER BOARD=============")
+      expect(msg.board_header_msg("Player")).to eq("==============PLAYER BOARD==============")
       expect(msg.board_header_msg("SFSDFSD")).to eq("Try again, please.")
     end
   end
