@@ -4,29 +4,20 @@ RSpec.describe Turn do
   describe '#initialize' do
     it 'can initialize the game with @player_input, and @board' do
       player_turn = Turn.new("Player")
-      expect(player_turn = Turn.new).to be_a(Turn)
+      expect(player_turn = Turn.new("Player")).to be_a(Turn)
       expect(player_turn.check_player_input).to eq(nil)
       expect(player_turn.board).to be_a(Board)
       expect(player_turn.name).to eq("Player")
     end
 
     it 'has the option to pass in a parameter for @check_player_input' do
-      player_turn = Turn.new("p")
+      player_turn = Turn.new("Player", "p")
 
       expect(player_turn.check_player_input).to eq("p")
     end
   end
 
-  describe '#main_menu' do
-    it 'can print the #main_menu welcome message' do
-      player_turn = Turn.new("Player")
-
-      expect(player_turn.main_menu).to eq("Welcome to BATTLESHIP\nEnter p to play. Enter q to quit.")
-    end
-  end
-
-  describe '#setup' do
-
+  describe '#computer_setup' do
     it 'has a #computer_setup helper method that lays out the board for the computer' do
       player_turn = Turn.new("Player")
       turn_game.computer_setup
@@ -35,17 +26,6 @@ RSpec.describe Turn do
       turn_game.board.cells.values.each do |cell|
         expect(cell).to be_a(Cell)
       end
-    end
-
-    it 'directs the player what to do after setting the computers board' do
-      player_turn = Turn.new("Player")
-
-      expect(player_turn_game.setup_msg).to eq("I have laid out my ships on the grid.\n You now need to lay out your two ships.\n The Cruiser is three units long and the Submarine is two units long.\n")
-      #   1 2 3 4\n
-      # A . . . .\n
-      # B . . . .\n
-      # C . . . .\n
-      # D . . . .\n")
     end
   end
 
@@ -59,23 +39,13 @@ RSpec.describe Turn do
     end
   end
 
-  describe '#ship_message' do
-    it 'generates a prompt for the user to place their cruiser or submarine' do
-      player_turn = Turn.new("Player")
-
-      expect(player_turn_game.ship_message("cruiser")).to eq("Enter the squares for the Cruiser (3 spaces):\n >")
-      expect(player_turn_game.ship_message("submarine")).to eq("Enter the squares for the Submarine(2 spaces):\n > ")
-      expect(player_turn_game.ship_message("ship")).to eq("Error, try again")
-    end
-  end
-
   describe '#check_main_menu' do
     it 'can check whether the player put p or q, and responds correctly' do
-      turn = Turn.new("p")
+      turn = Turn.new("Player","p")
 
       expect(player_turn.check_main_menu_input).to eq(nil)
 
-      turn = Turn.new("1")
+      turn = Turn.new("Player","1")
 
       expect(player_turn.check_main_menu_input).to eq("OK, thanks for playing!")
     end
@@ -105,14 +75,6 @@ RSpec.describe Turn do
       player_turn = Turn.new("Player", "A1, B2, C3")
 
       expect(player_turn_game.check_player_coordinates(cruiser)).to eq(nil)
-    end
-  end
-
-  describe '#invalid_coordinates' do
-    it 'can tell the user that their coordinates are invalid, and prompt them to try again' do
-      player_turn = Turn.new("Player", "A1, B2, C3") 
-
-      expect(player_turn_game.invalid_coordinates_msg).to eq("Those are invalid coordinates. Please try again:\n >")
     end
   end
 
@@ -157,13 +119,6 @@ RSpec.describe Turn do
     end
   end
 
-  describe 'exit' do
-    it 'can end the turn game' do
-      player_turn = Turn.new("Player")
-      expect(player_turn_game.exit).to eq("Thanks for playing, see you soon.")
-    end
-  end
-
   describe '#player_shot_prompt' do
     it 'prompts the user to enter a coordinate for their shot ' do
       player_turn = Turn.new("Player")
@@ -174,7 +129,7 @@ RSpec.describe Turn do
 
   describe '#computer_shot' do
     it 'randomizes the computers shot' do
-      player_board = Turn.new
+      player_board = Turn.new("Player")
       player_board.computer_shot
       computer_shots = 0
       player_board.board.cells.values.each do |cell|

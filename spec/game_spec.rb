@@ -19,20 +19,4 @@ RSpec.describe Game do
     end
   end
 
-  describe '#display_board' do
-    it 'can display the computer board' do
-      Game = Game.new
-      computer_game = Turn.new
-
-      expect(Game.display_board(computer_game)).to eq(computer_game.board.render)
-    end
-
-    it 'can display the players board' do
-      Game = Game.new
-      player_game = Turn.new
-
-      expect(Game.display_board(player_game)).to eq(player_game.board.render)
-    end
-  end
-
 end

@@ -1,4 +1,10 @@
 class Message
+
+  
+
+  def main_menu
+    "Welcome to BATTLESHIP\nEnter p to play. Enter q to quit."
+  end
     
   def board_header(player_or_computer)
     if player_or_computer == "computer"
@@ -34,10 +40,6 @@ class Message
     else 
       "Error, try again"
     end
-  end
-  
-  def main_menu
-    "Welcome to BATTLESHIP\nEnter p to play. Enter q to quit."
   end
 
 end

@@ -15,8 +15,5 @@ class Game
     end
   end
 
-  def display_board(true_or_false = nil)
-    turns.board.render(true_or_false)
-  end
 
 end
