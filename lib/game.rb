@@ -1,8 +1,8 @@
 class Game
   attr_reader :turns
 
-  def initialize(turn = Turn.new)
-    @turns = turn
+  def initialize
+    @turns = [Turn.new("Player"), Turn.new("Computer")]
   end
 
   def board_text(player_or_computer)

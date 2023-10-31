@@ -1,7 +1,8 @@
 class Turn
-  attr_reader :check_player_input, :board
+  attr_reader :name, :check_player_input, :board
 
-  def initialize(test_player_input = nil)
+  def initialize(name, test_player_input = nil)
+    @name = name
     @board = Board.new
     @check_player_input = test_player_input
   end

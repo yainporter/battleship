@@ -1,7 +1,8 @@
 class Board
-  attr_reader :cells
+  attr_reader :cells, :name
 
-  def initialize
+  def initialize(name = nil)
+    @name = name
     @cells = {}
     cell_array.each {|cell| @cells.store(cell, Cell.new(cell))}
   end

@@ -18,6 +18,12 @@ RSpec.describe do
         expect(value).to be_a(Cell)
       end
     end
+
+    it 'has @name to keep track of Board' do
+      player_board = Board.new("Player")
+
+      expect(player_board.name).to eq("Player")
+    end
   end
 
   describe '#valid_coordinate?' do
