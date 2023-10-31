@@ -1,5 +1,5 @@
 require './lib/board'
 require './lib/cell'
 require './lib/ship'
-require './lib/battleship'
 require './lib/turn'
+require './lib/game'
