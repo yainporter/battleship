@@ -42,7 +42,7 @@ RSpec.describe Cell do
 
       cell.fire_upon
       expect(cell.ship.health).to eq(2)
-      expect(cell.shots_fire).to eq(1)
+      expect(cell.shots_fired).to eq(1)
 
       expect(cell2.fire_upon).to eq(nil)
       expect(cell2.shots_fired).to eq(1)
