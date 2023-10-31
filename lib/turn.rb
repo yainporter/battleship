@@ -1,3 +1,4 @@
+require 'Message'
 class Turn
   attr_reader :name, :check_player_input, :board
 
@@ -13,10 +14,12 @@ class Turn
   end
 
   def check_main_menu_input
+    msg = Message.new
+    
     if @check_player_input == "p" 
-      puts setup_msg
+      msg.setup_msg
     else
-      "OK, thanks for playing!"
+      msg.exit_msg
     end
   end
 

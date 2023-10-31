@@ -1,8 +1,5 @@
 class Message
 
-  def initialize
-  end
-
   def main_menu_msg
     "Welcome to BATTLESHIP\nEnter p to play. Enter q to quit."
   end

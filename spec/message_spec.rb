@@ -43,6 +43,14 @@ RSpec.describe Message do
     end
   end
 
+  describe '#player_shot_prompt' do
+  it 'prompts the user to enter a coordinate for their shot ' do
+    msg = Message.new
+    
+    expect(msg.player_shot_prompt_msg).to eq("Enter the coordinate for your shot:")
+  end
+end
+
   describe 'exit' do
     it 'can end the turn game' do
       msg = Message.new

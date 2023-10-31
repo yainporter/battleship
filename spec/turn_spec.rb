@@ -20,10 +20,10 @@ RSpec.describe Turn do
   describe '#computer_setup' do
     it 'has a #computer_setup helper method that lays out the board for the computer' do
       player_turn = Turn.new("Player")
-      turn_game.computer_setup
+      player_turn.computer_setup
 
-      expect(player_turn_game.board.cells.values.select{|cell| cell.empty? == false}.count).to eq(5)
-      turn_game.board.cells.values.each do |cell|
+      expect(player_turn.board.cells.values.select{|cell| cell.empty? == false}.count).to eq(5)
+      player_turn.board.cells.values.each do |cell|
         expect(cell).to be_a(Cell)
       end
     end
@@ -33,21 +33,22 @@ RSpec.describe Turn do
     it 'generate a random coordinate from an Array of coordinates and generate an Array of random coordinates when an argument is given' do
       player_turn = Turn.new("Player")
 
-      expect(player_turn_game.random_coordinate(3).count).to be(3)
-      expect(player_turn_game.random_coordinate(2).count).to be(2)
-      expect(player_turn_game.random_coordinate(3)).to include(String)
+      expect(player_turn.random_coordinate(3).count).to be(3)
+      expect(player_turn.random_coordinate(2).count).to be(2)
+      expect(player_turn.random_coordinate(3)).to include(String)
     end
   end
 
   describe '#check_main_menu' do
     it 'can check whether the player put p or q, and responds correctly' do
-      turn = Turn.new("Player","p")
+      turn = Turn.new("Player", "p")
+      msg = Message.new
 
-      expect(player_turn.check_main_menu_input).to eq(nil)
+      expect(turn.check_main_menu_input).to eq(msg.setup_msg)
 
-      turn = Turn.new("Player","1")
+      turn = Turn.new("Player", "1")
 
-      expect(player_turn.check_main_menu_input).to eq("OK, thanks for playing!")
+      expect(turn.check_main_menu_input).to eq(msg.exit_msg)
     end
   end
 
@@ -65,16 +66,16 @@ RSpec.describe Turn do
       cruiser = Ship.new("Cruiser", 3)
       submarine = Ship.new("Submarine", 2)  
 
-      expect(player_turn_game.check_player_coordinates(cruiser)).to eq(true)
-      expect(player_turn_game.check_player_coordinates(submarine)).to eq(nil)
+      expect(player_turn.check_player_coordinates(cruiser)).to eq(true)
+      expect(player_turn.check_player_coordinates(submarine)).to eq(nil)
 
       player_turn = Turn.new("Player", "A1, B1, C1")
 
-      expect(player_turn_game.check_player_coordinates(cruiser)).to eq(true)
+      expect(player_turn.check_player_coordinates(cruiser)).to eq(true)
 
       player_turn = Turn.new("Player", "A1, B2, C3")
 
-      expect(player_turn_game.check_player_coordinates(cruiser)).to eq(nil)
+      expect(player_turn.check_player_coordinates(cruiser)).to eq(nil)
     end
   end
 
@@ -83,18 +84,18 @@ RSpec.describe Turn do
       player_turn = Turn.new("Player", "A1, B1, C1")
       cruiser = Ship.new("Cruiser", 3)
       submarine = Ship.new("Submarine", 2)  
-      turn_game.place_player_ship(cruiser)
+      player_turn.place_player_ship(cruiser)
       cells_with_ship = 0
     
-      turn_game.board.cells.values.each do |cell|
+      player_turn.board.cells.values.each do |cell|
         cell.ship != nil ? cells_with_ship += 1 : false
       end
       expect(cells_with_ship).to eq(3)
 
       player_turn = Turn.new("Player", "A1, B1")
       cells_with_ship = 0
-      turn_game.place_player_ship(submarine)
-      turn_game.board.cells.values.each do |cell|
+      player_turn.place_player_ship(submarine)
+      player_turn.board.cells.values.each do |cell|
         cell.ship != nil ? cells_with_ship += 1 : false
       end
       expect(cells_with_ship).to eq(2)
@@ -105,8 +106,8 @@ RSpec.describe Turn do
     it 'can create a cruiser ship' do
       player_turn = Turn.new("Player")
 
-      expect(player_turn_game.cruiser).to be_a(Ship)
-      expect(player_turn_game.cruiser.name).to eq("Cruiser")
+      expect(player_turn.cruiser).to be_a(Ship)
+      expect(player_turn.cruiser.name).to eq("Cruiser")
     end
   end
 
@@ -114,16 +115,8 @@ RSpec.describe Turn do
     it 'can create a submarine ship' do
       player_turn = Turn.new("Player")
 
-      expect(player_turn_game.submarine).to be_a(Ship)
-      expect(player_turn_game.submarine.name).to eq("Submarine")
-    end
-  end
-
-  describe '#player_shot_prompt' do
-    it 'prompts the user to enter a coordinate for their shot ' do
-      player_turn = Turn.new("Player")
-      
-      expect(player_turn_game.player_shot_prompt).to eq("Enter the coordinate for your shot:")
+      expect(player_turn.submarine).to be_a(Ship)
+      expect(player_turn.submarine.name).to eq("Submarine")
     end
   end
 
@@ -157,7 +150,7 @@ RSpec.describe Turn do
     it 'can validate whether the cell has been fired upon or not' do
       player_turn = Turn.new("Player")
 
-      expect(player_turn_game.valid_shot?("C1")).to eq(true)
+      expect(player_turn.valid_shot?("C1")).to eq(true)
     end
   end
 
@@ -179,10 +172,10 @@ RSpec.describe Turn do
     it 'can check the cell to see what kind of shot was made, and translate to String accordingly' do
       player_turn = Turn.new("Player")
 
-      expect(player_turn_game.shot_results("M")).to eq("miss")
-      expect(player_turn_game.shot_results("X")).to eq("sink")
-      expect(player_turn_game.shot_results("H")).to eq("hit")
-      expect(player_turn_game.shot_results(".")).to eq("ERROR, try again.")
+      expect(player_turn.shot_results("M")).to eq("miss")
+      expect(player_turn.shot_results("X")).to eq("sink")
+      expect(player_turn.shot_results("H")).to eq("hit")
+      expect(player_turn.shot_results(".")).to eq("ERROR, try again.")
     end
   end
 end
