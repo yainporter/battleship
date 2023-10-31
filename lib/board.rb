@@ -3,7 +3,16 @@ class Board
 
   def initialize(name = nil)
     @name = name
+    @cells = create_cells
+  end
+
+  def create_cells
     @cells = {}
+    create_cells_hash
+    @cells
+  end
+
+  def create_cells_hash
     cell_array.each {|cell| @cells.store(cell, Cell.new(cell))}
   end
 

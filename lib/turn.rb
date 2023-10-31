@@ -79,8 +79,8 @@ class Turn
     results = board.cells[coordinate].render
     results = shot_results(results)
     "My shot on #{coordinate} was a #{results}."
-    end
   end
+
 
   def player_shot
     if valid_shot?(check_player_input) == false
@@ -105,6 +105,9 @@ class Turn
       "ERROR, try again."
     end
   end
+
+
+
 end
 # battleship = Battleship.new
 # battleship.main_menu
