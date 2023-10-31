@@ -8,12 +8,8 @@ class Board
 
   def create_cells
     @cells = {}
-    create_cells_hash
-    @cells
-  end
-
-  def create_cells_hash
     cell_array.each {|cell| @cells.store(cell, Cell.new(cell))}
+    @cells
   end
 
   def valid_coordinate?(coordinate)
@@ -24,8 +20,7 @@ class Board
     true_or_false
   end
 
-  def valid_placement?(ship, coordinates)
-    # if coordinates == ["A1", "A2"] then require 'pry'; binding.pry end
+  def valid_placement?(ship, coordinates) #How can I refactor this?
     if coordinates.count == ship.length && down?(coordinates) && coordinates_empty?(coordinates)
       true
     elsif coordinates.count == ship.length && across?(coordinates) && coordinates_empty?(coordinates)
@@ -141,15 +136,12 @@ class Board
   end
 
   def down?(coordinates)
-    if same_second_char?(coordinates) && consecutive_first_char?(coordinates)
-      true
-    end
+    same_second_char?(coordinates) && consecutive_first_char?(coordinates)
+
   end
 
   def across?(coordinates)
-    if consecutive_second_char?(coordinates) && same_first_char?(coordinates)
-      true
-    end
+    consecutive_second_char?(coordinates) && same_first_char?(coordinates)
   end
 
   def consecutive_first_char?(coordinates)

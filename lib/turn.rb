@@ -6,16 +6,24 @@ class Turn
     @name = name
     @board = Board.new
     @check_player_input = test_player_input
+    @msg = Message.new
   end
-############################ GAME SETUP ##############################
+
+  def cruiser
+    cruiser = Ship.new("Cruiser", 3)
+  end
+
+  def submarine
+    submarine = Ship.new("Submarine", 2)
+  end
+############################ PLAYER INPUTS ##############################
 
   def player_response
     @check_player_input = gets.chomp
   end
 
   def check_main_menu_input
-    msg = Message.new
-    @check_player_input == "p" ? msg.setup_msg : msg.exit_msg 
+    @check_player_input == "p" ? @msg.setup_msg : @msg.exit_msg 
   end
 
   def check_player_coordinates(ship)
@@ -27,30 +35,18 @@ class Turn
   def place_player_ship(ship)
     @board.place(ship, @check_player_input.gsub(",","").split) 
   end
-###################### PRIVATE METHODS ###################
 
-  def cruiser
-    cruiser = Ship.new("Cruiser", 3)
-  end
-
-  def submarine
-    submarine = Ship.new("Submarine", 2)
-  end
-
-  def random_coordinate(n)
-    n == 2 ? ship = submarine : ship = cruiser
-    sample = @board.cells.keys.sample(n)
-    until @board.valid_placement?(ship, sample)
-      sample = @board.cells.keys.sample(n)
+  def player_shot
+    if valid_shot?(check_player_input) == false
+      msg.invalid_coordinates_msg
+    else
+      board.cells[check_player_input].fire_upon
+      results = board.cells[check_player_input].render
+      results = shot_results(results)
     end
-    sample
+    "Your shot on #{check_player_input} was a #{results}."
   end
 
-  def computer_setup
-    @board.place(cruiser, random_coordinate(3))
-    @board.place(submarine, random_coordinate(2))
-  end
-  
   def loop_for_player_coordinates(ship)
     placement_check = false
     until placement_check == true
@@ -58,39 +54,11 @@ class Turn
       if check_player_coordinates(ship) == true 
         placement_check = true 
       elsif placement_check == false
-        puts invalid_coordinates_msg
+        msg.invalid_coordinates_msg
       else
-        "ERROR"
+        "ERROR, TRY AGAIN"
       end
     end
-  end
-########################### PLAYER SHOT ###################################
-
-  def valid_shot?(coordinate)
-    board.cells[coordinate].shots_fired == 0 ? true : false 
-  end
-
-  def computer_shot
-    coordinate = @board.cells.keys.sample
-    until valid_shot?(coordinate)
-      coordinate = @board.cells.keys.sample
-    end
-    board.cells[coordinate].fire_upon
-    results = board.cells[coordinate].render
-    results = shot_results(results)
-    "My shot on #{coordinate} was a #{results}."
-  end
-
-
-  def player_shot
-    if valid_shot?(check_player_input) == false
-      "Please enter a valid coordinate:"
-    else
-      board.cells[check_player_input].fire_upon
-      results = board.cells[check_player_input].render
-      results = shot_results(results)
-    end
-    "Your shot on #{check_player_input} was a #{results}."
   end
 
   def shot_results(results)
@@ -105,9 +73,33 @@ class Turn
       "ERROR, try again."
     end
   end
+###################### COMPUTER METHODS ###################
+  def random_coordinate(n)
+    n == 2 ? ship = submarine : ship = cruiser
+    sample = @board.cells.keys.sample(n)
+    until @board.valid_placement?(ship, sample)
+      sample = @board.cells.keys.sample(n)
+    end
+    sample
+  end
 
+  def valid_shot?(coordinate)
+    board.cells[coordinate].shots_fired == 0 ? true : false 
+  end
 
+  def computer_setup
+    @board.place(cruiser, random_coordinate(3))
+    @board.place(submarine, random_coordinate(2))
+  end
 
+  def computer_shot
+    coordinate = @board.cells.keys.sample
+    until valid_shot?(coordinate)
+      coordinate = @board.cells.keys.sample
+    end
+    board.cells[coordinate].fire_upon
+    results = board.cells[coordinate].render
+    results = shot_results(results)
+    "My shot on #{coordinate} was a #{results}."
+  end
 end
-# battleship = Battleship.new
-# battleship.main_menu

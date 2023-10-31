@@ -1,19 +1,21 @@
 class Game
-  attr_reader :turns
+  attr_reader :turns, :cruiser, :submarine, :msg
 
   def initialize
-    @turns = [Turn.new("Player"), Turn.new("Computer")]
+    @turns = {"Player" => Turn.new("Player"), "Computer" => Turn.new("Computer")}
+    @cruiser = Ship.new("Cruiser", 3)
+    @submarine = Ship.new("Submarine", 2)
+    @msg = Message.new
   end
 
-  def board_text(player_or_computer)
-    if player_or_computer == "computer"
-      "=============COMPUTER BOARD============="
-    elsif player_or_computer == "player"
-      "==============PLAYER BOARD=============="
-    else
-      "Try again, please."
-    end
+  def main_menu
+    msg.main_menu_msg
+    turns["Player"].player_response
+    turns["Player"].check_main_menu_input
   end
 
+  def game_set_up
+    
+  end
 
 end
