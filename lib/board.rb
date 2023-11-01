@@ -22,7 +22,6 @@ class Board
           true_or_false = true 
         end
       end
-    end
     true_or_false
   end
 
