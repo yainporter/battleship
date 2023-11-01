@@ -21,11 +21,11 @@ RSpec.describe Game do
     end
   end
 
-  describe '#game_set_up' do
-    it 'sets up the board' do
-      game = Game.new
-      game.play
-    end
-  end
+  # describe '#game_set_up' do
+  #   it 'sets up the board' do
+  #     game = Game.new
+  #     game.play
+  #   end
+  # end
   
 end

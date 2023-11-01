@@ -32,7 +32,7 @@ class Message
   def board_header_msg(player_or_computer)
     if player_or_computer == "Enemy"
       "=============ENEMY BOARD============="
-    elsif player_or_computer == "HOMELAND"
+    elsif player_or_computer == "Homeland"
       "==============HOMELAND BOARD=============="
     else
       "Try again, please."
