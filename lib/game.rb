@@ -90,7 +90,6 @@ class Game
       break if @turns["Player"].quit? || @turns["Computer"].quit?
       game_rounds
       break if @turns["Player"].quit? || @turns["Computer"].quit?
-
     end
   end
 

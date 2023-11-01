@@ -8,11 +8,7 @@ class Cell
   end
 
   def empty?
-    if @ship == nil
-      true
-    else
-      false
-    end
+    @ship == nil ? true : false
   end
 
   def place_ship(cruiser)
@@ -21,19 +17,11 @@ class Cell
 
   def fire_upon
     @shots_fired += 1
-    if empty?
-      nil
-    else
-      @ship.hit
-    end
+    empty? ? nil : @ship.hit
   end
 
   def fired_upon?
-    if @shots_fired == 0
-      false
-    else
-      true
-    end
+    @shots_fired == 0 ? false : true
   end
 
   def valid_cell?

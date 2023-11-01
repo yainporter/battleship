@@ -19,6 +19,10 @@ RSpec.describe Cell do
 
       expect(cell.empty?).to eq(true)
       expect(cell.ship).to eq(nil)
+
+      cell.place_ship(cruiser)
+
+      expect(cell.empty?).to eq(false)
     end
   end
 
@@ -63,6 +67,19 @@ RSpec.describe Cell do
     end
   end
 
+  describe '#valid_cell?' do
+    it 'can tell if a cell has been fired upon' do
+      cell = Cell.new("B4")
+      cruiser = Ship.new("Cruiser", 3)
+      cell.place_ship(cruiser)
+
+      expect(cell.valid_cell?).to eq(true)
+
+      cell.fire_upon
+      expect(cell.valid_cell?).to eq(false)
+    end
+  end
+
   describe '#render' do
     it 'will return a String representation of the Cell to be printed to the board' do
 
@@ -89,6 +106,14 @@ RSpec.describe Cell do
       hash.each do |key,value|
         expect(value).to be_an_instance_of(Cell)
       end 
+    end
+
+    it 'will return "S" if a ship is placed but no shots have been fired, and an argument "true" has been passed through' do
+      cell = Cell.new("B4")
+      cruiser = Ship.new("Cruiser", 3)
+      cell.place_ship(cruiser)
+
+      expect(cell.render(true)).to eq("S")
 
     end
   end

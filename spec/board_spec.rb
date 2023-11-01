@@ -2,8 +2,8 @@ require './spec/spec_helper'
 
 RSpec.describe do
   describe "#initialize" do 
-    it "has a cell attribute" do
-      board = Board.new
+    it "has @cell and @name" do
+      board = Board.new("Player")
 
       expect(board.cells).to be_a(Hash)
     end
@@ -23,6 +23,7 @@ RSpec.describe do
       player_board = Board.new("Player")
 
       expect(player_board.name).to eq("Player")
+      expect(player_board.name).to be_a(String)
     end
   end
 
@@ -33,8 +34,18 @@ RSpec.describe do
       expect(board.valid_coordinate?("A1")).to eq(true)
       expect(board.valid_coordinate?("D4")).to eq(true)
       expect(board.valid_coordinate?("A5")).to eq(false)
-      expect(board.valid_coordinate?("E1")).to eq(false)
       expect(board.valid_coordinate?("A22")).to eq(false)
+    end
+
+    it 'can check to see if a cell is empty or not' do
+      board = Board.new
+      cruiser = Ship.new("Cruiser", 3)
+
+      expect(board.valid_coordinate?("B4")).to eq(true)
+
+      board.cells["B4"].place_ship(cruiser)
+
+      expect(board.valid_coordinate?("B4")).to eq(false)
     end
   end
 
