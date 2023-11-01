@@ -20,7 +20,9 @@ RSpec.describe Turn do
   describe '#computer_setup' do
     it 'has a #computer_setup helper method that lays out the board for the computer' do
       player_turn = Turn.new("Player")
-      player_turn.computer_setup
+      cruiser = Ship.new("Cruiser", 3)
+      submarine = Ship.new("Submarine", 2)
+      player_turn.computer_setup(cruiser, submarine)
 
       expect(player_turn.board.cells.values.select{|cell| cell.empty? == false}.count).to eq(5)
       player_turn.board.cells.values.each do |cell|
@@ -32,10 +34,11 @@ RSpec.describe Turn do
   describe '#random_coordinate' do
     it 'generate a random coordinate from an Array of coordinates and generate an Array of random coordinates when an argument is given' do
       player_turn = Turn.new("Player")
-
-      expect(player_turn.random_coordinate(3).count).to be(3)
-      expect(player_turn.random_coordinate(2).count).to be(2)
-      expect(player_turn.random_coordinate(3)).to include(String)
+      cruiser = Ship.new("Cruiser", 3)
+      submarine = Ship.new("Submarine", 2)
+      expect(player_turn.random_coordinate(cruiser).count).to be(3)
+      expect(player_turn.random_coordinate(submarine).count).to be(2)
+      expect(player_turn.random_coordinate(cruiser)).to include(String)
     end
   end
 
@@ -99,24 +102,6 @@ RSpec.describe Turn do
         cell.ship != nil ? cells_with_ship += 1 : false
       end
       expect(cells_with_ship).to eq(2)
-    end
-  end
-
-  describe '#cruiser' do
-    it 'can create a cruiser ship' do
-      player_turn = Turn.new("Player")
-
-      expect(player_turn.cruiser).to be_a(Ship)
-      expect(player_turn.cruiser.name).to eq("Cruiser")
-    end
-  end
-
-  describe '#submarine' do
-    it 'can create a submarine ship' do
-      player_turn = Turn.new("Player")
-
-      expect(player_turn.submarine).to be_a(Ship)
-      expect(player_turn.submarine.name).to eq("Submarine")
     end
   end
 

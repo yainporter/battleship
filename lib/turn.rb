@@ -8,14 +8,6 @@ class Turn
     @check_player_input = test_player_input
     @msg = Message.new
   end
-
-  def cruiser
-    cruiser = Ship.new("Cruiser", 3)
-  end
-
-  def submarine
-    submarine = Ship.new("Submarine", 2)
-  end
 ############################ PLAYER INPUTS ##############################
 
   def player_response
@@ -64,6 +56,7 @@ class Turn
       player_response
       if check_player_coordinates(ship) == true 
         placement_check = true 
+        puts @msg.valid_entry_msg
       else
         puts @msg.invalid_coordinates_msg
       end
@@ -83,11 +76,10 @@ class Turn
     end
   end
 ###################### COMPUTER METHODS ###################
-  def random_coordinate(n)
-    n == 2 ? ship = submarine : ship = cruiser
-    sample = @board.cells.keys.sample(n)
+  def random_coordinate(ship)
+    sample = @board.cells.keys.sample(ship.length)
     until @board.valid_placement?(ship, sample)
-      sample = @board.cells.keys.sample(n)
+      sample = @board.cells.keys.sample(ship.length)
     end
     sample
   end
@@ -96,9 +88,9 @@ class Turn
     board.cells[coordinate].shots_fired == 0 ? true : false 
   end
 
-  def computer_setup
-    @board.place(cruiser, random_coordinate(3))
-    @board.place(submarine, random_coordinate(2))
+  def computer_setup(cruiser, submarine)
+    @board.place(cruiser, random_coordinate(cruiser))
+    @board.place(submarine, random_coordinate(submarine))
   end
 
   def computer_shot

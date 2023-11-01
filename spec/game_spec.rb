@@ -9,8 +9,8 @@ RSpec.describe Game do
       expect(game).to be_a(Game)
       expect(game.turns).to be_a(Hash)
       expect(game.turns["Player"]).to be_a(Turn)
-      expect(game.cruiser).to be_a(Ship)
-      expect(game.submarine).to be_a(Ship)
+      expect(game.ships).to be_a(Hash)
+      expect(game.ships[:player_submarine]).to be_a(Ship)
       expect(game.msg).to be_a(Message)
     end
   end
@@ -25,6 +25,7 @@ RSpec.describe Game do
     it 'sets up the board' do
       game = Game.new
       game.set_up
+      game.player_rounds
     end
   end
   

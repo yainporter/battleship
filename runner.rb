@@ -13,12 +13,12 @@ player_turn = Turn.new(player_battleship)
 # computer_battleship.computer_setup
 # puts player_battleship.board.render
 # puts player_battleship.ship_message("cruiser")
-player_battleship.loop_for_player_coordinates(cruiser)
-player_battleship.place_player_ship (cruiser)
-puts player_battleship.board.render(true)
-puts player_battleship.ship_message("submarine")
-player_battleship.loop_for_player_coordinates(submarine)
-player_battleship.place_player_ship(submarine)
+# player_battleship.loop_for_player_coordinates(cruiser)
+# player_battleship.place_player_ship (cruiser)
+# puts player_battleship.board.render(true)
+# puts player_battleship.ship_message("submarine")
+# player_battleship.loop_for_player_coordinates(submarine)
+# player_battleship.place_player_ship(submarine)
 puts player_battleship.board.render(true)
 puts computer_turn.board_text("computer")
 puts computer_battleship.board.render

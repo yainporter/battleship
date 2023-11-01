@@ -18,6 +18,11 @@ class Message
     end
   end
 
+  def valid_entry_msg
+    "Your entry was valid, thank you."
+  end
+
+
   def invalid_coordinates_msg
     "Those are invalid coordinates. Please try again."
   end
