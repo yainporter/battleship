@@ -59,7 +59,6 @@ class Game
       puts @msg.board_header_msg("Player")
       puts @boards["Player"].render(true)
       puts @msg.next_round_msg
-      sunk_ships?
     end
   end
 
