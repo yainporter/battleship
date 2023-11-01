@@ -1,5 +1,4 @@
-require './lib/ship'
-require './lib/cell'
+require './spec/spec_helper'
 
 RSpec.describe Cell do
   describe '#initialize' do
@@ -20,6 +19,10 @@ RSpec.describe Cell do
 
       expect(cell.empty?).to eq(true)
       expect(cell.ship).to eq(nil)
+
+      cell.place_ship(cruiser)
+
+      expect(cell.empty?).to eq(false)
     end
   end
 
@@ -34,18 +37,18 @@ RSpec.describe Cell do
     end
   end
 
-  describe '#fired_upon' do
+  describe '#fire_upon' do
     it 'will damage the Ship' do
       cell = Cell.new("B4")
       cruiser = Ship.new("Cruiser", 3)
       cell.place_ship(cruiser)
       cell2 = Cell.new("A4")
 
-      cell.fired_upon
+      cell.fire_upon
       expect(cell.ship.health).to eq(2)
       expect(cell.shots_fired).to eq(1)
 
-      expect(cell2.fired_upon).to eq(nil)
+      expect(cell2.fire_upon).to eq(nil)
       expect(cell2.shots_fired).to eq(1)
     end
   end
@@ -58,9 +61,22 @@ RSpec.describe Cell do
 
       expect(cell.fired_upon?).to eq(false)
 
-      cell.fired_upon
+      cell.fire_upon
 
       expect(cell.fired_upon?).to eq(true)
+    end
+  end
+
+  describe '#valid_cell?' do
+    it 'can tell if a cell has been fired upon' do
+      cell = Cell.new("B4")
+      cruiser = Ship.new("Cruiser", 3)
+      cell.place_ship(cruiser)
+
+      expect(cell.valid_cell?).to eq(true)
+
+      cell.fire_upon
+      expect(cell.valid_cell?).to eq(false)
     end
   end
 
@@ -70,18 +86,18 @@ RSpec.describe Cell do
       cell = Cell.new("B4")
       expect(cell.render).to eq(".")
 
-      cell.fired_upon
+      cell.fire_upon
 
       expect(cell.render).to eq("M")
 
       cruiser = Ship.new("Cruiser", 3)
       cell.place_ship(cruiser)
-      cell.fired_upon
+      cell.fire_upon
 
       expect(cell.render).to eq("H")
 
-      cell.fired_upon
-      cell.fired_upon
+      cell.fire_upon
+      cell.fire_upon
 
       expect(cell.render).to eq("X")
 
@@ -90,6 +106,14 @@ RSpec.describe Cell do
       hash.each do |key,value|
         expect(value).to be_an_instance_of(Cell)
       end 
+    end
+
+    it 'will return "S" if a ship is placed but no shots have been fired, and an argument "true" has been passed through' do
+      cell = Cell.new("B4")
+      cruiser = Ship.new("Cruiser", 3)
+      cell.place_ship(cruiser)
+
+      expect(cell.render(true)).to eq("S")
 
     end
   end

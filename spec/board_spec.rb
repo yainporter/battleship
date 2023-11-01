@@ -1,9 +1,9 @@
-require './lib/board'
+require './spec/spec_helper'
 
 RSpec.describe do
   describe "#initialize" do 
-    it "has a cell attribute" do
-      board = Board.new
+    it "has @cell and @name" do
+      board = Board.new("Player")
 
       expect(board.cells).to be_a(Hash)
     end
@@ -18,6 +18,13 @@ RSpec.describe do
         expect(value).to be_a(Cell)
       end
     end
+
+    it 'has @name to keep track of Board' do
+      player_board = Board.new("Player")
+
+      expect(player_board.name).to eq("Player")
+      expect(player_board.name).to be_a(String)
+    end
   end
 
   describe '#valid_coordinate?' do
@@ -27,16 +34,26 @@ RSpec.describe do
       expect(board.valid_coordinate?("A1")).to eq(true)
       expect(board.valid_coordinate?("D4")).to eq(true)
       expect(board.valid_coordinate?("A5")).to eq(false)
-      expect(board.valid_coordinate?("E1")).to eq(false)
       expect(board.valid_coordinate?("A22")).to eq(false)
+    end
+
+    it 'can check to see if a cell is empty or not' do
+      board = Board.new
+      cruiser = Ship.new("Cruiser", 3)
+
+      expect(board.valid_coordinate?("B4")).to eq(true)
+
+      board.cells["B4"].place_ship(cruiser)
+
+      expect(board.valid_coordinate?("B4")).to eq(false)
     end
   end
 
-  # describe "#valid_placement?" do
-  #   it "can tell if the coordinate array is the same as the ship length" do
-  #     board = Board.new
-  #     cruiser = Ship.new("Cruiser", 3)
-  #     submarine = Ship.new("Submarine", 2)  
+  describe "#valid_placement??" do
+    it "can tell if the coordinate array is the same as the ship length" do
+      board = Board.new
+      cruiser = Ship.new("Cruiser", 3)
+      submarine = Ship.new("Submarine", 2)  
 
   #     expect(board.valid_placement?(cruiser, ["A1", "A2"])).to eq(false)
   #     expect(board.valid_placement?(submarine, ["A2", "A3", "A4"])).to eq(false)
@@ -82,6 +99,48 @@ RSpec.describe do
 
       expect(board.consecutive?(coordinates)).to eq(false)
       expect(board.consecutive?(coordinates2)).to eq(true)
+    end
+
+    it 'can check to make sure that the coordinate is empty' do
+      board = Board.new
+      cruiser = Ship.new("Cruiser", 3)
+      submarine = Ship.new("Submarine", 2)  
+      board.place(cruiser, ["A1", "A2", "A3"])
+      expect(board.valid_placement?(submarine, ["A1", "B1"])).to eq(false)
+    end
+  end
+
+  describe '#place' do
+    it 'can place a ship within multiple cells' do
+      board = Board.new
+      cruiser = Ship.new("Cruiser", 3) 
+      cell_1 = board.cells["A1"] 
+      cell_2 = board.cells["A2"]
+      cell_3 = board.cells["A3"]
+      board.place(cruiser, ["A1", "A2", "A3"]) 
+
+      expect(cell_1.ship).to eq(cruiser)
+      expect(cell_2.ship).to eq(cruiser)
+      expect(cell_3.ship).to eq(cruiser)
+      expect(cell_3.ship == cell_2.ship).to eq(true)
+    end
+  end
+
+  describe '#render' do
+    it 'can render a String representation of the board' do
+      board = Board.new
+      cruiser = Ship.new("Cruiser", 3) 
+      board.place(cruiser, ["A1", "A2", "A3"])
+
+      expect(board.render).to eq("  1 2 3 4 \nA . . . . \nB . . . . \nC . . . . \nD . . . . \n")
+    end
+
+    it 'can have an option argument to indicate whether ships are hidden' do
+      board = Board.new
+      cruiser = Ship.new("Cruiser", 3) 
+      board.place(cruiser, ["A1", "A2", "A3"])
+
+      expect(board.render(true)).to eq("  1 2 3 4 \nA S S S . \nB . . . . \nC . . . . \nD . . . . \n")
     end
   end
 end

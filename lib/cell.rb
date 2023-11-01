@@ -8,36 +8,34 @@ class Cell
   end
 
   def empty?
-    if @ship == nil
-      true
-    else
-      false
-    end
+    @ship == nil ? true : false
   end
 
   def place_ship(cruiser)
     @ship = cruiser
   end
 
-  def fired_upon
+  def fire_upon
     @shots_fired += 1
-    if empty?
-      nil
-    else
-      @ship.hit
-    end
+    empty? ? nil : @ship.hit
   end
 
   def fired_upon?
-    if @shots_fired == 0
-      false
-    else
+    @shots_fired == 0 ? false : true
+  end
+
+  def valid_cell?
+    if shots_fired == 0
       true
+    else
+      false
     end
   end
 
-  def render
-    if shots_fired == 0 
+  def render(true_or_false = false)
+    if true_or_false == true && shots_fired == 0 && @ship != nil
+      "S"
+    elsif shots_fired == 0 
       "."
     elsif shots_fired > 0 && @ship == nil
       "M"
