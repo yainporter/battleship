@@ -53,12 +53,10 @@ class Game
       end
       puts @turns["Player"].computer_shot
       puts @turns["Computer"].player_shot
-      sunk_ships?
       puts @msg.board_header_msg("Computer")
       puts @boards["Computer"].render
       puts @msg.board_header_msg("Player")
       puts @boards["Player"].render(true)
-      sunk_ships?
     end
   end
 

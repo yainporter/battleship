@@ -13,7 +13,7 @@ class Turn
 ############################ PLAYER INPUTS ##############################
 
   def player_response
-    @check_player_input = gets
+    @check_player_input = gets.chomp
     # $stdin.gets("\n")
     quit?
   end
