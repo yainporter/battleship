@@ -27,6 +27,13 @@ RSpec.describe do
     end
   end
 
+  describe '#create_cells' do
+    it 'can create the @cells from #cell_array' do
+      board = Board.new
+    end
+
+  end
+
   describe '#valid_coordinate?' do
     it 'can tell if a coordinate is on the board or not' do
       board = Board.new

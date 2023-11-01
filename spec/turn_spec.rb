@@ -42,7 +42,7 @@ RSpec.describe Turn do
     end
   end
 
-  describe '#check_main_menu' do
+  describe '#check_main_menu_input' do
     it 'can check whether the player put p or q, and responds correctly' do
       turn = Turn.new("Player", "p")
       msg = Message.new
@@ -52,14 +52,6 @@ RSpec.describe Turn do
       turn = Turn.new("Player", "q")
 
       expect(turn.check_main_menu_input).to eq(false)
-    end
-  end
-
-  describe '#player_setup' do
-    it 'can check to see if the player_input is valid' do
-      player_turn = Turn.new("Player")
-
-      # expect(player_setup).to eq("Enter the squares for the Submarine (2 spaces):")
     end
   end
 
@@ -82,7 +74,7 @@ RSpec.describe Turn do
     end
   end
 
-  describe '#place_player_cruiser' do
+  describe '#place_player_ship' do
     it 'can place the cruiser once the player coordinates chosen are valid' do
       player_turn = Turn.new("Player", "A1, B1, C1")
       cruiser = Ship.new("Cruiser", 3)
@@ -138,20 +130,6 @@ RSpec.describe Turn do
       expect(player_turn.valid_shot?("C1")).to eq(true)
     end
   end
-
-  # describe 'player_shot' do
-  #   it 'lets the player take a shot at the computers board' do
-  #   computer_board = Turn.new
-  #   computer_board.player_response
-  #   computer_board.player_shot
-  #   computer_shots = 0
-  #   player_board.board.cells.values.each do |cell|
-  #     if cell.shots_fired > 0
-  #       computer_shots += 1
-  #     end
-  #   end
-  #   expect(computer_shots).to eq(1)
-  # end
 
   describe 'shot_results' do
     it 'can check the cell to see what kind of shot was made, and translate to String accordingly' do
