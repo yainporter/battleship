@@ -18,6 +18,8 @@ class Turn
     quit?
   end
 
+
+  #This is not implemented correctly yet
   def quit?
     if @check_player_input == "q" && quit_count == 0
       puts @msg.exit_msg 
@@ -34,7 +36,7 @@ class Turn
     if quit?
       false
     elsif @check_player_input == "p" 
-       @msg.setup_msg
+      @msg.setup_msg
     else
       @msg.error_msg
     end
@@ -50,7 +52,7 @@ class Turn
     end
   end
 
-
+  # Didn't end up using this method for some reason
   # def check_player_input_count(ship)
   #   until @check_player_input.split.count == ship.length 
   #   @msg.invalid_coordinates_msg
@@ -66,6 +68,7 @@ class Turn
     end
   end
 
+  ## NOT TESTED DUE TO GETS
   def player_shot
     if valid_shot?(@check_player_input)
       @board.cells[@check_player_input].fire_upon
@@ -77,23 +80,8 @@ class Turn
     "Your shot on #{@check_player_input} was a #{results}."
   end
 
-  # def loop_for_player_coordinates(ship)
-  #   placement_check = false
-  #   until placement_check == true
-  #     puts @msg.ship_msg(ship.name)
-  #     player_response
-  #     if quit?
-  #       break
-  #     elsif check_player_coordinates(ship) == true 
-  #       placement_check = true 
-  #       puts @msg.valid_entry_msg
-  #     elsif placement_check == false
-  #       puts @msg.invalid_coordinates_msg
-  #       puts @board.render(true)
-  #     end
-  #   end
-  # end
 
+  ## NOT TESTED DUE TO GETS
   def loop_for_player_coordinates(ship)
     placement_check = false
     until placement_check == true
@@ -109,6 +97,22 @@ class Turn
     end
   end
 
+  ## NOT TESTED DUE TO GETS
+  def valid_shot?(coordinate)
+    coordinate = coordinate
+    if @board.valid_cell?(coordinate) == nil
+      puts @msg.invalid_coordinates_msg
+      player_response
+      player_shot
+    elsif @board.valid_cell?(coordinate)
+      true
+    else
+      puts @msg.pick_another_coordinate_msg
+      player_response
+      player_shot
+    end
+  end
+
   def shot_results(results)
     case results
     when "M"
@@ -116,7 +120,6 @@ class Turn
     when "X"
       "sink"
     when "H"
-    # elsif results == "H"
       "hit"
     else
       "There's an error, try again."
@@ -133,21 +136,6 @@ class Turn
       sample = @board.cells.keys.sample(ship.length)
     end
     sample
-  end
-
-  def valid_shot?(coordinate)
-    coordinate = coordinate
-    if @board.valid_cell?(coordinate) == nil
-      puts @msg.invalid_coordinates_msg
-      player_response
-      player_shot
-    elsif @board.valid_cell?(coordinate)
-      true
-    else
-      puts @msg.pick_another_coordinate_msg
-      player_response
-      player_shot
-    end
   end
 
   def computer_valid_shot?(coordinate)
