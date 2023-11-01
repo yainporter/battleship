@@ -24,30 +24,24 @@ class Game
   def main_menu
     puts msg.main_menu_msg
     @turns["Player"].player_response
-    # break if game_quit?
     @turns["Player"].check_main_menu_input
   end
 
   def set_up
       @turns["Computer"].computer_setup(@ships[:computer_cruiser], @ships[:computer_submarine])
-
-      puts @turns["Player"].board.render
-      # break if player_quit?
+      puts @boards["Player"].render
       puts @msg.ship_msg("Cruiser")
       @turns["Player"].loop_for_player_coordinates(@ships[:player_cruiser])
-      # break if player_quit?
       @turns["Player"].place_player_ship(@ships[:player_cruiser])
-      puts @turns["Player"].board.render(true)
-      # break if player_quit?
+      puts @boards["Player"].render(true)
       puts @msg.ship_msg("Submarine")
       @turns["Player"].loop_for_player_coordinates(@ships[:player_submarine])
-      # break if player_quit?
       @turns["Player"].place_player_ship(@ships[:player_submarine])
 
       puts @msg.board_header_msg("Computer")
-      puts @turns["Computer"].board.render
+      puts @boards["Computer"].render
       puts @msg.board_header_msg("Player")
-      puts @turns["Player"].board.render(true)
+      puts @boards["Player"].render(true)
   end
 
   def game_rounds
@@ -61,9 +55,9 @@ class Game
       puts @turns["Computer"].player_shot
       sunk_ships?
       puts @msg.board_header_msg("Computer")
-      puts @turns["Computer"].board.render
+      puts @boards["Computer"].render
       puts @msg.board_header_msg("Player")
-      puts @turns["Player"].board.render(true)
+      puts @boards["Player"].render(true)
       sunk_ships?
     end
   end
