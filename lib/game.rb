@@ -53,22 +53,24 @@ class Game
       end
       puts @turns["Player"].computer_shot
       puts @turns["Computer"].player_shot
+      sunk_ships?
       puts @msg.board_header_msg("Computer")
       puts @boards["Computer"].render
       puts @msg.board_header_msg("Player")
       puts @boards["Player"].render(true)
+      puts @msg.next_round_msg
+      sunk_ships?
     end
   end
 
   def sunk_ships?
     if @ships[:player_cruiser].sunk? && @ships[:player_submarine].sunk?
-      puts @msg.you_lose
+      puts @msg.you_lose_msg
       true
     elsif @ships[:computer_cruiser].sunk? && @ships[:computer_submarine].sunk?
       puts @msg.computer_loses_msg
       true
     else
-      puts @msg.next_round_msg
       false
     end
   end
@@ -77,11 +79,8 @@ class Game
   def play
     until @turns["Player"].quit? || @turns["Computer"].quit?
       main_menu
-      break if @turns["Player"].quit? || @turns["Computer"].quit?
       set_up
-      break if @turns["Player"].quit? || @turns["Computer"].quit?
       game_rounds
-      break if @turns["Player"].quit? || @turns["Computer"].quit?
     end
   end
 
