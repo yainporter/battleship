@@ -28,14 +28,21 @@ class Board
 
   #Method to validate coordinate(s)
 
-  def valid_placement?(ship, coordinates) #How can I refactor this?
-    if coordinates.count == ship.length && down?(coordinates) && coordinates_empty?(coordinates)
-      true
-    elsif coordinates.count == ship.length && across?(coordinates) && coordinates_empty?(coordinates)
+  def valid_placement?(ship, coordinates) 
+    if coordinates.count == ship.length && coordinates_empty?(coordinates) && down_or_across?(coordinates)
       true
     else
       false
     end
+    
+    #How can I refactor this?
+    # if coordinates.count == ship.length && down?(coordinates) && coordinates_empty?(coordinates)
+    #   true
+    # elsif coordinates.count == ship.length && across?(coordinates) && coordinates_empty?(coordinates)
+    #   true
+    # else
+    #   false
+    # end
   end
 
   def place(ship, coordinates)
@@ -93,6 +100,10 @@ class Board
 
   def across?(coordinates)
     consecutive_second_char?(coordinates) && same_first_char?(coordinates)
+  end
+
+  def down_or_across?(coordinates)
+  true if across?(coordinates) || down?(coordinates)
   end
 
   def consecutive_first_char?(coordinates)
