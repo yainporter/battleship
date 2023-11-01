@@ -1,5 +1,5 @@
 
-require 'Message'
+require './lib/message'
 class Turn
   attr_reader :name, :check_player_input, :board
 
@@ -13,7 +13,7 @@ class Turn
 ############################ PLAYER INPUTS ##############################
 
   def player_response
-    @check_player_input = gets.chomp
+    @check_player_input = gets.chomp.upcase
     # $stdin.gets("\n")
     quit?
   end
