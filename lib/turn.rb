@@ -67,7 +67,6 @@ class Turn
   end
 
   def player_shot
-    @check_player_input = check_player_input.chomp
     if valid_shot?(@check_player_input)
       @board.cells[@check_player_input].fire_upon
       results = board.cells[@check_player_input].render
@@ -81,7 +80,7 @@ class Turn
   # def loop_for_player_coordinates(ship)
   #   placement_check = false
   #   until placement_check == true
-  #     puts @msg.ship_msg(ship.name).chomp
+  #     puts @msg.ship_msg(ship.name)
   #     player_response
   #     if quit?
   #       break
@@ -137,7 +136,7 @@ class Turn
   end
 
   def valid_shot?(coordinate)
-    coordinate = coordinate.chomp
+    coordinate = coordinate
     if @board.valid_cell?(coordinate) == nil
       puts @msg.invalid_coordinates_msg
       player_response

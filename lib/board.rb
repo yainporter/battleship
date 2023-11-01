@@ -34,7 +34,7 @@ class Board
     else
       false
     end
-    
+
     #How can I refactor this?
     # if coordinates.count == ship.length && down?(coordinates) && coordinates_empty?(coordinates)
     #   true
@@ -54,7 +54,7 @@ class Board
   end
 
   def valid_cell?(coordinate)
-    coordinate = coordinate.chomp
+    coordinate = coordinate
     if cells[coordinate] == nil
       nil
     elsif cells[coordinate].valid_cell?
