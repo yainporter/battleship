@@ -1,3 +1,4 @@
+
 class Board
   attr_reader :cells, :name
 
@@ -17,7 +18,9 @@ class Board
     true_or_false = false
     @cells.each do |key_coordinate,cell|
       coordinates.each do |coordinate|
-        key_coordinate.to_s == coordinate && cell.empty? ? true_or_false = true : false
+        if key_coordinate.to_s == coordinate && cell.empty? 
+          true_or_false = true 
+        end
       end
     end
     true_or_false
@@ -41,6 +44,17 @@ class Board
 
   def render(true_or_false = nil)
     true_or_false == true ? render_true(true_or_false) : render_nil
+  end
+
+  def valid_cell?(coordinate)
+    coordinate = coordinate.chomp
+    if cells[coordinate] == nil
+      nil
+    elsif cells[coordinate].valid_cell?
+      true
+    else
+      false
+    end
   end
 
 ####################### PRIVATE METHODS START ###########################

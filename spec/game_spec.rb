@@ -24,8 +24,7 @@ RSpec.describe Game do
   describe '#game_set_up' do
     it 'sets up the board' do
       game = Game.new
-      game.set_up
-      game.player_rounds
+      game.play
     end
   end
   

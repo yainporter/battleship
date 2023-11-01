@@ -44,4 +44,24 @@ class Message
   def exit_msg
     "Thanks for playing, see you soon."
   end
+
+  def you_lose_msg
+    "All of your ships have been sunk, you lose!"
+  end
+
+  def computer_loses_msg
+    "All of the computer's ships have been sunk, you win!"
+  end
+
+  def next_round_msg
+    "Next round!"
+  end
+
+  def pick_another_coordinate_msg
+    "You have already fired on this coordinate, pick another one. (:"
+  end
+
+  def error_msg
+    "There's an error, try again."
+  end
 end

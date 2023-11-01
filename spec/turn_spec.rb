@@ -49,9 +49,9 @@ RSpec.describe Turn do
 
       expect(turn.check_main_menu_input).to eq(msg.setup_msg)
 
-      turn = Turn.new("Player", "1")
+      turn = Turn.new("Player", "q")
 
-      expect(turn.check_main_menu_input).to eq(msg.exit_msg)
+      expect(turn.check_main_menu_input).to eq(false)
     end
   end
 
@@ -160,7 +160,7 @@ RSpec.describe Turn do
       expect(player_turn.shot_results("M")).to eq("miss")
       expect(player_turn.shot_results("X")).to eq("sink")
       expect(player_turn.shot_results("H")).to eq("hit")
-      expect(player_turn.shot_results(".")).to eq("ERROR, try again.")
+      expect(player_turn.shot_results(".")).to eq("There's an error, try again.")
     end
   end
 end

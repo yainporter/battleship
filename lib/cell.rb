@@ -36,6 +36,14 @@ class Cell
     end
   end
 
+  def valid_cell?
+    if shots_fired == 0
+      true
+    else
+      false
+    end
+  end
+
   def render(true_or_false = false)
     if true_or_false == true && shots_fired == 0 && @ship != nil
       "S"
